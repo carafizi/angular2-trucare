@@ -1,6 +1,6 @@
-import {MEMBERS} from './data/members';
+import {MEMBERS} from '../data/members';
 import {Injectable} from 'angular2/core';
-import {Member} from "./model/member";
+import {Member} from "../model/member";
 
 @Injectable()
 export class MemberService {

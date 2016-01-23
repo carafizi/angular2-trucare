@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Member} from './model/member';
+import {Member} from '../model/member';
 
 
 @Component({
