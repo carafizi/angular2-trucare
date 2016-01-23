@@ -1,6 +1,6 @@
-import {MEMBERS} from './mock-members';
+import {MEMBERS} from './data/mock-members';
 import {Injectable} from 'angular2/core';
-import {Member} from "./member";
+import {Member} from "./model/member";
 
 @Injectable()
 export class MemberService {

@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Member} from './member';
+import {Member} from './model/member';
 import {MemberDetailComponent} from './member-detail.component';
 import {MemberService} from './member.service';
 import {OnInit} from 'angular2/core';
