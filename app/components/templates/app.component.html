@@ -1,7 +1,7 @@
 <h2>List of members</h2>
 <ul class="members">
     <li *ngFor="#member of members" [class.selected]="member === selectedMember" (click)="onSelect(member)">
-        <span class="badge">{{member.id}}</span> {{member.name}}
+        <span class="badge">{{member.externalMemberId}}</span> {{member.firstName}} {{member.lastName}}
     </li>
 </ul>
 

@@ -1,8 +1,8 @@
 <div *ngIf="member">
-    <h2>{{member.name}} details!</h2>
-    <div><label>id: </label>{{member.id}}</div>
+    <h2>{{member.firstName}} {{member.lastName}} details!</h2>
+    <div><label>id: </label>{{member.externalMemberId}}</div>
     <div>
         <label>name: </label>
-        <input [(ngModel)]="member.name" placeholder="name"/>
+        <input [(ngModel)]="member.lastName" placeholder="name"/>
     </div>
 </div>
