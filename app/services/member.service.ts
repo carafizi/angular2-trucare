@@ -1,4 +1,4 @@
-import {MEMBERS} from '../data/members';
+import {MEMBERS} from '../data/members-list';
 import {Injectable} from 'angular2/core';
 import {Member} from "../model/member";
 
