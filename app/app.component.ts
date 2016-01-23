@@ -76,7 +76,6 @@ export class AppComponent implements OnInit{
     constructor(private _memberService: MemberService) { }
 
     onSelect(member: Member) { this.selectedMember = member; }
-    onSelect(member: Member) { this.selectedMember = member; }
 
     getMembers() {
         this._memberService.getMembers()
