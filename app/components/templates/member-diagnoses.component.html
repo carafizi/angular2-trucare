@@ -1,0 +1,7 @@
+<h2>List of Diagnoses</h2>
+<ul class="diagnoses">
+    <li *ngFor="#diagnosis of diagnoses">
+        <span class="badge">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
+        <span class="badge">{{diagnosis.diagnosisCode.diagnosisName}}</span>
+    </li>
+</ul>
