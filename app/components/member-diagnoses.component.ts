@@ -12,10 +12,10 @@ import {Member} from "../model/member";
     <div class="panel panel-primary">
           <div class="panel-heading">{{title}}</div>
           <div class="panel-body" *ngIf="member">
-                <ul class="diagnoses">
+                <ul>
                     <li *ngFor="#diagnosis of diagnoses">
                         <span class="badge">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
-                        <span class="badge">{{diagnosis.diagnosisCode.diagnosisName}}</span>
+                        <span class="text">{{diagnosis.diagnosisCode.diagnosisName}}</span>
                     </li>
                 </ul>
             </div>

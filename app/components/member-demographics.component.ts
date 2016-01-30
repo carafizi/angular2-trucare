@@ -12,12 +12,12 @@ import {Member} from "../model/member";
         <div class="panel panel-primary">
           <div class="panel-heading">{{title}}</div>
           <div class="panel-body" *ngIf="member">
-            <div><label>id: </label>{{member.externalMemberId}}</div>
-                <div><label>First name: </label>{{member.firstName}}</div>
-                <div><label>Last name: </label>{{member.lastName}}</div>
-                <div><label>Age: </label>{{member.age}}</div>
-                <div><label>Gender: </label>{{member.gender.value}}</div>
-                <div><label>Date of birth: </label>{{member.birthDate}}</div>
+            <div><span class="badge">ID: </span>{{member.externalMemberId}}</div>
+                <div><span class="badge">First name:</span> {{member.firstName}}</div>
+                <div><span class="badge">Last name: </span>{{member.lastName}}</div>
+                <div><span class="badge">Age: </span>{{member.age}}</div>
+                <div><span class="badge">Gender: </span>{{member.gender.value}}</div>
+                <div><span class="badge">Date of birth: </span>{{member.birthDate}}</div>
           </div>
         </div>
     `,

@@ -44,3 +44,12 @@
     margin-right: .8em;
     border-radius: 4px 0px 0px 4px;
 }
+
+.row-eq-height {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:         flex;
+}
+
+

@@ -1,55 +1,47 @@
-<!--<top-menu></top-menu>-->
+<table >
+    <tr>
+        <td height="30" colspan="2"></td>
+    </tr>
 
-<!--<div style="display: inline-block">-->
-    <!--<h2>List of members</h2>-->
-    <!--<ul class="members">-->
-        <!--<li *ngFor="#member of members" [class.selected]="member === selectedMember" (click)="onSelect(member)">-->
-            <!--<span class="badge">{{member.externalMemberId}}</span> {{member.firstName}} {{member.lastName}}-->
-        <!--</li>-->
-    <!--</ul>-->
-<!--</div>-->
-
-<!--<div style="display: inline-block">-->
-    <!--<member-demographics [member]="selectedMember"></member-demographics>-->
-<!--</div>-->
-
-<!--<div style="display: inline-block">-->
-    <!--<member-allergies [member]="selectedMember"></member-allergies>-->
-<!--</div>-->
+    <tr>
+        <td valign="top" width="20%">
+            <ul class="members">
+                <li *ngFor="#member of members" [class.selected]="member === selectedMember"
+                    (click)="onSelect(member)">
+                    <span class="badge">{{member.externalMemberId}}</span>
+                    {{member.firstName}}
+                    {{member.lastName}}
+                </li>
+            </ul>
+        </td>
 
 
-<!--<div style="display: inline-block">-->
-    <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
-<!--</div>-->
+        <td width="80%">
+            <div class="container-fluid" row-eq-height>
+
+                <div class="row" style="height: 60px"><top-menu></top-menu></div>
+
+                <div class="row"style="height: 300px">
+
+                    <div class="col-xs-4">
+                        <member-demographics [member]="selectedMember"></member-demographics>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <member-allergies [member]="selectedMember"></member-allergies>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <member-diagnoses [member]="selectedMember"></member-diagnoses>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
 
 
-<!--<member-detail [member]="selectedMember"></member-detail>-->
-<div style="display: inline-block">
-    <table border="1">
-        <tr>
-            <td valign="top"><div style="display: inline-block">
-                <h2>Members</h2>
-                <ul class="members">
-                    <li *ngFor="#member of members" [class.selected]="member === selectedMember" (click)="onSelect(member)">
-                        <span class="badge">{{member.externalMemberId}}</span> {{member.firstName}} {{member.lastName}}
-                    </li>
-                </ul>
-            </div></td>
-        </tr>
-    </table>
-</div>
 
-<div style="display: inline-block">
-    <table border="1" valign="top">
-        <tr>
-            <td colspan="3" valign="top"><top-menu></top-menu></td>
-        </tr>
-        <tr>
-            <td valign="top"><member-demographics [member]="selectedMember"></member-demographics></td>
-            <td valign="top"><member-allergies [member]="selectedMember"></member-allergies></td>
-            <td valign="top"><member-diagnoses [member]="selectedMember"></member-diagnoses></td>
-        </tr>
 
-    </table>
-</div>
 
+
+</table>
