@@ -2,7 +2,7 @@ import {Component} from 'angular2/core';
 import {Member} from '../model/member';
 import {MemberDetailComponent} from './member-detail.component';
 import {MemberService} from '../services/member.service';
-import {OnInit} from 'angular2/core';
+import {OnInit, OnChanges} from 'angular2/core';
 import {MemberAllergiesComponent} from "./member-allergies.component";
 import {MemberDiagnosesComponent} from "./member-diagnoses.component";
 import {TopMenuComponent} from "./top-menu.component";
@@ -29,7 +29,7 @@ import {TopMenuComponent} from "./top-menu.component";
 
 
         <div style="display: inline-block">
-            <member-diagnoses [member]="selectedMember"></member-diagnoses>
+            <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
         </div>
 
         <!--<member-detail [member]="selectedMember"></member-detail>-->
