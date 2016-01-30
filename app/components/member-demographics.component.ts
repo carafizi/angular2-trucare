@@ -9,15 +9,17 @@ import {Member} from "../model/member";
     selector: 'member-demographics',
     //templateUrl:'app/components/templates/member-allergies.component.html',
     template: `
-      <div *ngIf="member">
-        <h2>{{title}}</h2>
-        <div><label>id: </label>{{member.externalMemberId}}</div>
-        <div><label>First name: </label>{{member.firstName}}</div>
-        <div><label>Last name: </label>{{member.lastName}}</div>
-        <div><label>Age: </label>{{member.age}}</div>
-        <div><label>Gender: </label>{{member.gender.value}}</div>
-        <div><label>Date of birth: </label>{{member.birthDate}}</div>
-     </div>
+        <div class="panel panel-primary">
+          <div class="panel-heading">{{title}}</div>
+          <div class="panel-body" *ngIf="member">
+            <div><label>id: </label>{{member.externalMemberId}}</div>
+                <div><label>First name: </label>{{member.firstName}}</div>
+                <div><label>Last name: </label>{{member.lastName}}</div>
+                <div><label>Age: </label>{{member.age}}</div>
+                <div><label>Gender: </label>{{member.gender.value}}</div>
+                <div><label>Date of birth: </label>{{member.birthDate}}</div>
+          </div>
+        </div>
     `,
     inputs: ['member'],
     providers: [MemberService]

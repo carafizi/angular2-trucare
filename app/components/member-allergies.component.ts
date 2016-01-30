@@ -9,20 +9,25 @@ import {Member} from "../model/member";
     selector: 'member-allergies',
     //templateUrl:'app/components/templates/member-allergies.component.html',
     template: `
-       <h2>{{title}}</h2>
+       <div class="panel panel-primary">
+          <div class="panel-heading">{{title}}</div>
+          <div class="panel-body" *ngIf="member">
             <ul class="allergies">
                 <li *ngFor="#allergy of allergies">
                     <span class="badge">{{allergy.id}}</span>
                     <span class="badge">{{allergy.allergy.label}}</span>
                 </li>
             </ul>
+          </div>
+        </div>
+
     `,
     inputs: ['member'],
     providers: [MemberService]
 })
 export class MemberAllergiesComponent implements OnChanges {
     public member:Member;
-    public title = 'List of Allergies';
+    public title = 'Allergies';
     public allergies:Allergy[];
 
     constructor(private _memberService:MemberService) {

@@ -9,14 +9,16 @@ import {Member} from "../model/member";
     selector: 'member-diagnoses',
     //templateUrl:'app/components/templates/member-diagnoses.component.html',
     template: `
-    <h2>{{title}}</h2>
-    <div *ngIf="member">
-        <ul class="diagnoses">
-            <li *ngFor="#diagnosis of diagnoses">
-                <span class="badge">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
-                <span class="badge">{{diagnosis.diagnosisCode.diagnosisName}}</span>
-            </li>
-        </ul>
+    <div class="panel panel-primary">
+          <div class="panel-heading">{{title}}</div>
+          <div class="panel-body" *ngIf="member">
+                <ul class="diagnoses">
+                    <li *ngFor="#diagnosis of diagnoses">
+                        <span class="badge">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
+                        <span class="badge">{{diagnosis.diagnosisCode.diagnosisName}}</span>
+                    </li>
+                </ul>
+            </div>
     </div>
     `,
     inputs: ['member'],
@@ -24,7 +26,7 @@ import {Member} from "../model/member";
 })
 export class MemberDiagnosesComponent implements OnChanges{
     public member: Member;
-    public title = 'List of Members';
+    public title = 'Diagnoses';
     public diagnoses:Diagnosis[];
 
     constructor(private _memberService: MemberService) { }
