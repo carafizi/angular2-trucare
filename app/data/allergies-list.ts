@@ -51,7 +51,7 @@ export var ALLERGIES:Allergy[] = [
 
 export var ALLERGIES_RICHARD:Allergy[] = [
     {
-        "id": "sjmsdnq7-5920-1453-5820-887320000000",
+        "id": "3",
         "allergy": {
             "label": "Aspirin - Richard",
             "value": "Aspirin",
@@ -76,7 +76,7 @@ export var ALLERGIES_RICHARD:Allergy[] = [
 ];
 export var ALLERGIES_DESMOND:Allergy[] = [
     {
-        "id": "sjmsdnq7-5920-1453-5820-887320000000",
+        "id": "4",
         "allergy": {
             "label": "Aspirin - Desmond",
             "value": "Aspirin",

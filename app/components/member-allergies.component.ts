@@ -12,7 +12,7 @@ import {Member} from "../model/member";
        <h2>{{title}}</h2>
             <ul class="allergies">
                 <li *ngFor="#allergy of allergies">
-                    <span class="badge">{{allergy.allergy.id}}</span>
+                    <span class="badge">{{allergy.id}}</span>
                     <span class="badge">{{allergy.allergy.label}}</span>
                 </li>
             </ul>
