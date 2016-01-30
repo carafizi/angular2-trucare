@@ -7,12 +7,13 @@ import {MemberAllergiesComponent} from "./member-allergies.component";
 import {MemberDiagnosesComponent} from "./member-diagnoses.component";
 import {TopMenuComponent} from "./top-menu.component";
 import {MemberDemographicsComponent} from "./member-demographics.component";
+import {MemberMenuComponent} from "./member-menu.component";
 
 @Component({
     selector: 'trucare-app',
     templateUrl: 'app/components/templates/app.component.html' ,
     styleUrls:['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, TopMenuComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent],
     providers: [MemberService]
 })
 export class AppComponent implements OnInit{
