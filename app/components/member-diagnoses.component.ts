@@ -14,7 +14,7 @@ import {Member} from "../model/member";
           <div class="panel-body" *ngIf="member">
                 <ul>
                     <li *ngFor="#diagnosis of diagnoses">
-                        <span class="badge">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
+                        <span class="text--cap">{{diagnosis.diagnosisCode.diagnosisCode}}</span>
                         <span class="text">{{diagnosis.diagnosisCode.diagnosisName}}</span>
                     </li>
                 </ul>

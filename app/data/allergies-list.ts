@@ -4,8 +4,8 @@ export var ALLERGIES:Allergy[] = [
     {
         "id": "1",
         "allergy": {
-            "label": "Aspirin - Kate",
-            "value": "Aspirin",
+            "label": "Penicillinum",
+            "value": "Penicillinum",
             "disabled": false,
             "id": "OPTIONVALUE0000001145"
         },
@@ -27,14 +27,14 @@ export var ALLERGIES:Allergy[] = [
     {
         "id": "2",
         "allergy": {
-            "label": "Codein - Kate",
+            "label": "Codein",
             "value": "Codein",
             "disabled": false,
             "id": "OPTIONVALUE0000001145"
         },
         "reaction": {
-            "label": "Abdominal Pain",
-            "value": "Abdominal Pain",
+            "label": "Swelling",
+            "value": "Swelling",
             "disabled": false,
             "id": "OPTIONVALUE0000000963"
         },
@@ -53,7 +53,7 @@ export var ALLERGIES_RICHARD:Allergy[] = [
     {
         "id": "3",
         "allergy": {
-            "label": "Aspirin - Richard",
+            "label": "Aspirin",
             "value": "Aspirin",
             "disabled": false,
             "id": "OPTIONVALUE0000001145"
@@ -78,8 +78,8 @@ export var ALLERGIES_DESMOND:Allergy[] = [
     {
         "id": "4",
         "allergy": {
-            "label": "Aspirin - Desmond",
-            "value": "Aspirin",
+            "label": "Eggs",
+            "value": "Eggs",
             "disabled": false,
             "id": "OPTIONVALUE0000001145"
         },

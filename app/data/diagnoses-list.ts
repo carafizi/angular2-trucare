@@ -7,7 +7,7 @@ export var DIAGNOSES:Diagnosis[] = [
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
             "diagnosisCode": "003.21",
-            "diagnosisName": "SALMONELLA MENINGITIS"
+            "diagnosisName": "CHOLERA"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
@@ -32,8 +32,8 @@ export var DIAGNOSES_DESMOND:Diagnosis[] = [
         "reportedBy": "Desmond",
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
-            "diagnosisCode": "003.21",
-            "diagnosisName": "Gripp"
+            "diagnosisCode": "003.20",
+            "diagnosisName": "ANGINA DECUBITUS"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
@@ -44,7 +44,7 @@ export var DIAGNOSES_DESMOND:Diagnosis[] = [
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
             "diagnosisCode": "003.21",
-            "diagnosisName": "ORVI"
+            "diagnosisName": "PNEUMONIA"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
@@ -58,7 +58,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
             "diagnosisCode": "003.28",
-            "diagnosisName": "HEPATITIS A"
+            "diagnosisName": "Aphonia"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
@@ -69,7 +69,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
             "diagnosisCode": "003.33",
-            "diagnosisName": "HEPATITIS B"
+            "diagnosisName": "Antrax"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
@@ -80,7 +80,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
         "diagnosisCode": {
             "id": "iqxfrn08-3041-2408-0474-245050000010",
             "diagnosisCode": "003.35",
-            "diagnosisName": "HEPATITIS C"
+            "diagnosisName": "ORNITHOSIS"
         },
         "primaryDiagnosis": false,
         "reportedDate": "2016-01-23"
