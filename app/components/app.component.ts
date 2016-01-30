@@ -6,36 +6,13 @@ import {OnInit, OnChanges} from 'angular2/core';
 import {MemberAllergiesComponent} from "./member-allergies.component";
 import {MemberDiagnosesComponent} from "./member-diagnoses.component";
 import {TopMenuComponent} from "./top-menu.component";
+import {MemberDemographicsComponent} from "./member-demographics.component";
 
 @Component({
     selector: 'trucare-app',
-    //templateUrl: 'app/components/templates/app.component.html' ,
-    template:
-        `
-        <top-menu></top-menu>
-
-        <div style="display: inline-block">
-            <h2>List of members</h2>
-            <ul class="members">
-                <li *ngFor="#member of members" [class.selected]="member === selectedMember" (click)="onSelect(member)">
-                    <span class="badge">{{member.externalMemberId}}</span> {{member.firstName}} {{member.lastName}}
-                </li>
-            </ul>
-        </div>
-
-        <div style="display: inline-block">
-            <member-allergies [member]="selectedMember"></member-allergies>
-        </div>
-
-
-        <div style="display: inline-block">
-            <member-diagnoses [member]="selectedMember"></member-diagnoses>
-        </div>
-
-        <!--<member-detail [member]="selectedMember"></member-detail>-->
-        `,
+    templateUrl: 'app/components/templates/app.component.html' ,
     styleUrls:['app/components/css/app.component.css'],
-    directives: [MemberDetailComponent, MemberAllergiesComponent, MemberDiagnosesComponent, TopMenuComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, TopMenuComponent],
     providers: [MemberService]
 })
 export class AppComponent implements OnInit{
