@@ -9,7 +9,7 @@ import {Member} from "../model/member";
     selector: 'member-allergies',
     //templateUrl:'app/components/templates/member-allergies.component.html',
     template: `
-       <h2>List of allergies</h2>
+       <h2>{{title}}</h2>
             <ul class="allergies">
                 <li *ngFor="#allergy of allergies">
                     <span class="badge">{{allergy.allergy.id}}</span>

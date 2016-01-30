@@ -29,7 +29,7 @@ import {TopMenuComponent} from "./top-menu.component";
 
 
         <div style="display: inline-block">
-            <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
+            <member-diagnoses [member]="selectedMember"></member-diagnoses>
         </div>
 
         <!--<member-detail [member]="selectedMember"></member-detail>-->
