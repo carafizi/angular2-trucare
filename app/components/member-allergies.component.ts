@@ -17,6 +17,11 @@ import {Member} from "../model/member";
                     <span class="text">{{allergy.allergy.label}}</span>-
                     <span class="text">{{allergy.reaction.label}}</span>
                 </li>
+                <li *ngFor="#post of posts">
+                    <span class="text">{{post.id}}</span>-
+                    <span class="text">{{post.title}}</span>
+                </li>
+
             </ul>
           </div>
         </div>
@@ -29,6 +34,7 @@ export class MemberAllergiesComponent implements OnChanges {
     public member:Member;
     public title = 'Allergies';
     public allergies:Allergy[];
+    public posts;
 
     constructor(private _memberService:MemberService) {
     }
@@ -39,9 +45,21 @@ export class MemberAllergiesComponent implements OnChanges {
             .then(allergies => this.allergies = allergies);
     }
 
+    getPosts() {
+        this._memberService.getPosts().subscribe(
+            // the first argument is a function which runs on success
+            data => { this.posts = data},
+            // the second argument is a function which runs on error
+            err => console.error(err),
+            // the third argument is a function which runs on completion
+            () => console.log('done loading posts')
+        );
+    }
+
     ngOnChanges(){
         if(this.member) {
             this.getAllergies(this.member);
+            this.getPosts();
         }
     }
 }

@@ -7,9 +7,14 @@ import {ALLERGIES_RICHARD} from "../data/allergies-list";
 import {ALLERGIES_DESMOND} from "../data/allergies-list";
 import {DIAGNOSES_RICHARD} from "../data/diagnoses-list";
 import {DIAGNOSES_DESMOND} from "../data/diagnoses-list";
+import {Http, Response} from 'angular2/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class MemberService {
+
+    constructor(private _http:Http) { }
+
     getMembers() {
         return Promise.resolve(MEMBERS);
     }
@@ -39,5 +44,10 @@ export class MemberService {
     getMembersSlowly() {
         return new Promise<Member[]>(resolve =>setTimeout(()=>resolve(MEMBERS), 2000) // 2 seconds
         );
+    }
+
+    // Uses http.get() to load from a public API
+    getPosts() {
+        return this._http.get('http://jsonplaceholder.typicode.com/posts').map((res:Response) => res.json());
     }
 }
