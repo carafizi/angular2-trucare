@@ -112,5 +112,12 @@ export class MemberService {
         return this._http.put(this.url + "/member-list/" + memberId, "", {headers:headers}).map((res:Response) => res.json());
     }
 
+    deleteMember(memberId:string){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.delete(this.url + "/member-list/" + memberId, {headers:headers}).map((res:Response) => res.json());
+    }
+
 
 }

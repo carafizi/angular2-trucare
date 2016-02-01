@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {Diagnosis} from "../model/diagnosis";
 import {MemberService} from '../services/member.service';
 import {OnChanges} from 'angular2/core';
@@ -22,11 +22,12 @@ import {DiagnosisSearchResult} from "../model/diagnosis-search-result";
             </div>
     </div>
     `,
-    inputs: ['member'],
     providers: [MemberService]
 })
 export class MemberDiagnosesComponent implements OnChanges{
+    @Input()
     public member: Member;
+
     public title = 'Diagnoses';
     public diagnoses:DiagnosisSearchResult[];
 

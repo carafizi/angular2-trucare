@@ -10,6 +10,7 @@ import {MemberDemographicsComponent} from "./member-demographics.component";
 import {MemberMenuComponent} from "./member-menu.component";
 import {MemberSearchComponent} from "./member-search.component";
 import {Headers} from "angular2/http";
+import {ElementRef} from "angular2/core";
 
 @Component({
     selector: 'trucare-app',
@@ -25,8 +26,10 @@ import {Headers} from "angular2/http";
         <td valign="top" width="15%" style="padding-right: 10px">
             <div class="list-group">
                 <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
-                {{member.firstName}}
-                {{member.lastName}}</a>
+                    {{member.firstName}}
+                    {{member.lastName}}
+                    <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
+                </a>
             </div>
         </td>
         <td width="80%" valign="top">
@@ -39,7 +42,7 @@ import {Headers} from "angular2/http";
                 </div>
             </div>
 
-            <div><member-search></member-search></div>
+            <div><member-search [menumembers]="members"></member-search></div>
         </td>
     </tr>
 </table>
@@ -48,7 +51,7 @@ import {Headers} from "angular2/http";
     directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberSearchComponent],
     providers: [MemberService]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
     public title = 'List of Members';
     public selectedMember:Member;
     public members:Member[];
@@ -68,8 +71,16 @@ export class AppComponent implements OnInit {
         this._memberService.getMembersFromTrucare().subscribe(res => {this.members = res.members});
     }
 
+    removeMember(memberId:string){
+        this._memberService.deleteMember(memberId).subscribe(res => {this.members = res.members});
+    }
+
     ngOnInit() {
         this.getMembers();
+    }
+
+    ngOnChanges(){
+        console.log("something changed");
     }
 
 }

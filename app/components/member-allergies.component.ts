@@ -22,11 +22,12 @@ import {Member} from "../model/member";
         </div>
 
     `,
-    inputs: ['member'],
     providers: [MemberService]
 })
 export class MemberAllergiesComponent implements OnChanges {
+    @Input()
     public member:Member;
+
     public title = 'Allergies';
     public allergies:Allergy[];
     public posts;

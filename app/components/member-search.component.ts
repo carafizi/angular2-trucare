@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {ControlGroup} from "angular2/common";
 import {Control} from "angular2/common";
@@ -17,31 +17,37 @@ import {OnInit} from "angular2/core";
         </div>
 
         <div class="list-group">
-                <a href="#" class="list-group-item" *ngFor="#member of members" (click)="addMember(member.id)">{{member.firstName}}{{member.lastName}}</a>
+                <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)">{{member.firstName}} {{member.lastName}}</a>
         </div>
     `,
     providers: [MemberService]
 })
 export class MemberSearchComponent implements OnInit{
     public searchCriteria:string;
-    private selectedMember:Member;
-    public members:MemberSearchResult[];
-    public myMembers:Member[];
+    public memberResults:MemberSearchResult[];
+    @Input()
+    public menumembers:Member[];
 
     constructor(private _memberService:MemberService) {}
 
     searchMembers() {
         console.log(this.searchCriteria);
+        console.log("MenuMembers in searchMembers = "+ this.menumembers);
         if(this.searchCriteria && this.searchCriteria.length > 2) {
-            this._memberService.searchMembers(this.searchCriteria).subscribe(res => {this.members = res.searchResults});
+            this._memberService.searchMembers(this.searchCriteria).subscribe(res => {this.memberResults = res.searchResults});
         }
     }
 
     addMember(memberId:string){
-        this._memberService.addMember(memberId).subscribe(res => {this.myMembers = res.searchResults});
+        console.log("MenuMembers before ADD = "+ this.menumembers);
+        this._memberService.addMember(memberId).subscribe(res => {
+            this.menumembers=res.members;
+            console.log("MenuMembers after ADD = "+ this.menumembers);
+            this.memberResults = []
+        });
     }
 
     ngOnInit() {
-        //this.searchMembers();
+        console.log("MenuMembers in INIT = "+ this.menumembers);
     }
 }
