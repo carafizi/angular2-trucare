@@ -11,6 +11,7 @@ import {MemberMenuComponent} from "./member-menu.component";
 import {MemberSearchComponent} from "./member-search.component";
 import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
+import {MemberSearchResult} from "../model/member-search-result";
 
 @Component({
     selector: 'trucare-app',
@@ -24,7 +25,17 @@ import {ElementRef} from "angular2/core";
     </tr>
     <tr>
         <td valign="top" width="15%" style="padding-right: 10px">
-            <div><member-search [menumembers]="members"></member-search></div>
+            <!--<div><member-search [menumembers]="members"></member-search></div>-->
+            <div class="panel panel-default">
+                <div class="panel-body">
+                   <input class="form-control" placeholder="enter member name.." [(ngModel)]="searchCriteria" (keyup)="searchMembers()" />
+                </div>
+            </div>
+
+        <div class="list-group">
+                <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)" style="background: cornsilk">{{member.firstName}} {{member.lastName}}</a>
+        </div>
+
             <div class="list-group">
                 <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
                     {{member.firstName}}
@@ -54,6 +65,8 @@ export class AppComponent implements OnInit, OnChanges {
     public title = 'List of Members';
     public selectedMember:Member;
     public members:Member[];
+    public searchCriteria:string;
+    public memberResults:MemberSearchResult[];
 
     constructor(private _memberService:MemberService) {}
 
@@ -72,6 +85,27 @@ export class AppComponent implements OnInit, OnChanges {
 
     removeMember(memberId:string){
         this._memberService.deleteMember(memberId).subscribe(res => {this.members = res.members});
+    }
+
+    searchMembers() {
+        console.log(this.searchCriteria);
+        //console.log("MenuMembers in searchMembers = "+ this.menumembers);
+        if(this.searchCriteria && this.searchCriteria.length > 2) {
+            this._memberService.searchMembers(this.searchCriteria).subscribe(
+                res => {
+                    this.memberResults = res.searchResults;
+                    this.searchCriteria="";
+                }
+            )};
+    }
+
+    addMember(memberId:string){
+        //console.log("MenuMembers before ADD = "+ this.menumembers);
+        this._memberService.addMember(memberId).subscribe(res => {
+            this.members=res.members;
+            //console.log("MenuMembers after ADD = "+ this.menumembers);
+            this.memberResults = []
+        });
     }
 
     ngOnInit() {
