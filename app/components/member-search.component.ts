@@ -12,12 +12,14 @@ import {OnInit} from "angular2/core";
     selector: 'member-search',
     template:
         `
-        <div>
-           <input class="swish-input" placeholder="Enter search word.." [(ngModel)]="searchCriteria" (keyup)="searchMembers()" />
+        <div class="panel panel-default">
+            <div class="panel-body">
+               <input class="form-control" placeholder="enter member name.." [(ngModel)]="searchCriteria" (keyup)="searchMembers()" />
+            </div>
         </div>
 
         <div class="list-group">
-                <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)">{{member.firstName}} {{member.lastName}}</a>
+                <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)" style="background: cornsilk">{{member.firstName}} {{member.lastName}}</a>
         </div>
     `,
     providers: [MemberService]

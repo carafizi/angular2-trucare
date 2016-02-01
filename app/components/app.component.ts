@@ -24,6 +24,7 @@ import {ElementRef} from "angular2/core";
     </tr>
     <tr>
         <td valign="top" width="15%" style="padding-right: 10px">
+            <div><member-search [menumembers]="members"></member-search></div>
             <div class="list-group">
                 <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
                     {{member.firstName}}
@@ -41,8 +42,6 @@ import {ElementRef} from "angular2/core";
                     <div class="col-xs-4"><member-diagnoses [member]="selectedMember"></member-diagnoses></div>
                 </div>
             </div>
-
-            <div><member-search [menumembers]="members"></member-search></div>
         </td>
     </tr>
 </table>
