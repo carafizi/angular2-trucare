@@ -1,6 +1,7 @@
 import {Diagnosis} from "../model/diagnosis";
+import {DiagnosisSearchResult} from "../model/diagnosis-search-result";
 
-export var DIAGNOSES:Diagnosis[] = [
+export var DIAGNOSES:DiagnosisSearchResult[] = [
     {
         "id": "sjmsdnq7-5920-1453-5821-171140000000",
         "reportedBy": "Kate",
@@ -10,6 +11,7 @@ export var DIAGNOSES:Diagnosis[] = [
             "diagnosisName": "CHOLERA"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     },
     {
@@ -21,12 +23,13 @@ export var DIAGNOSES:Diagnosis[] = [
             "diagnosisName": "SALMONELLA MENINGITIS"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     }
 ];
 
 
-export var DIAGNOSES_DESMOND:Diagnosis[] = [
+export var DIAGNOSES_DESMOND:DiagnosisSearchResult[] = [
     {
         "id": "sjmsdnq7-5920-1453-5821-171140000000",
         "reportedBy": "Desmond",
@@ -36,6 +39,7 @@ export var DIAGNOSES_DESMOND:Diagnosis[] = [
             "diagnosisName": "ANGINA DECUBITUS"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     },
     {
@@ -47,11 +51,12 @@ export var DIAGNOSES_DESMOND:Diagnosis[] = [
             "diagnosisName": "PNEUMONIA"
         },
         "primaryDiagnosis": false,
-        "reportedDate": "2016-01-23"
+        "reportedDate": "2016-01-23",
+        "voidInfoExists":false
     }
 ];
 
-export var DIAGNOSES_RICHARD:Diagnosis[] = [
+export var DIAGNOSES_RICHARD:DiagnosisSearchResult[] = [
     {
         "id": "sjmsdnq7-5920-1453-5821-171140000000",
         "reportedBy": "Richard",
@@ -61,6 +66,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
             "diagnosisName": "Aphonia"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     },
     {
@@ -72,6 +78,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
             "diagnosisName": "Antrax"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     },
     {
@@ -83,6 +90,7 @@ export var DIAGNOSES_RICHARD:Diagnosis[] = [
             "diagnosisName": "ORNITHOSIS"
         },
         "primaryDiagnosis": false,
+        "voidInfoExists":false,
         "reportedDate": "2016-01-23"
     }
 ];

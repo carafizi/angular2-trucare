@@ -17,11 +17,6 @@ import {Member} from "../model/member";
                     <span class="text">{{allergy.allergy.label}}</span>-
                     <span class="text">{{allergy.reaction.label}}</span>
                 </li>
-                <li *ngFor="#post of posts">
-                    <span class="text">{{post.id}}</span>-
-                    <span class="text">{{post.title}}</span>
-                </li>
-
             </ul>
           </div>
         </div>
@@ -39,27 +34,17 @@ export class MemberAllergiesComponent implements OnChanges {
     constructor(private _memberService:MemberService) {
     }
 
-
-    getAllergies(member:Member) {
-        this._memberService.getMemberAllergies(this.member)
-            .then(allergies => this.allergies = allergies);
+    getAllergiesMock(member:Member) {
+        this._memberService.getMemberAllergies(this.member).then(res => this.allergies = res);
     }
 
-    getPosts() {
-        this._memberService.getPosts().subscribe(
-            // the first argument is a function which runs on success
-            data => { this.posts = data},
-            // the second argument is a function which runs on error
-            err => console.error(err),
-            // the third argument is a function which runs on completion
-            () => console.log('done loading posts')
-        );
+    getMemberAllergies() {
+        this._memberService.getAllergiesFromTrucare(this.member).subscribe(res => {this.allergies = res});
     }
 
     ngOnChanges(){
         if(this.member) {
-            this.getAllergies(this.member);
-            this.getPosts();
+            this.getMemberAllergies();
         }
     }
 }

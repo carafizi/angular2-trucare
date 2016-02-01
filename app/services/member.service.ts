@@ -9,11 +9,16 @@ import {DIAGNOSES_RICHARD} from "../data/diagnoses-list";
 import {DIAGNOSES_DESMOND} from "../data/diagnoses-list";
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
+import {Headers} from "angular2/http";
 
 @Injectable()
 export class MemberService {
 
-    constructor(private _http:Http) { }
+    token:string;
+
+    constructor(private _http:Http) {
+        this.token = localStorage.getItem('token');
+    }
 
     getMembers() {
         return Promise.resolve(MEMBERS);
@@ -50,4 +55,37 @@ export class MemberService {
     getPosts() {
         return this._http.get('http://jsonplaceholder.typicode.com/posts').map((res:Response) => res.json());
     }
+
+    // Uses http.get() to load members from the secure TC API
+    getMembersFromTrucare() {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.get('http://localhost:8082/trucare-api/6.2/api/member-list', headers).map((res:Response) => res.json());
+    }
+
+    getAllergiesFromTrucare(member:Member) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.get("http://localhost:8082/trucare-api/6.2/api/members/"+member.id+"/allergies", headers).map((res:Response) => res.json());
+    }
+
+    getDiagnosesFromTrucare(member:Member) {
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //headers.append("Accept", "application/json");
+        var searchCriteria={"startIndex": 0,
+            "length": 10,
+            "gotoLastPage": false,
+            "primaryOnly": false,
+            "includeOpen": true,
+            "includeClosed": false,
+            "includeVoided": false,
+            "reverseChronologicalOrder": false
+    };
+        return this._http.post("http://localhost:8082/trucare-api/6.2/api/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers}).map((res:Response) => res.json());
+    }
+
+
 }

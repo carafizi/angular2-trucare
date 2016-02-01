@@ -12,7 +12,8 @@ import {Member} from "../model/member";
         <div class="panel panel-primary">
           <div class="panel-heading">{{title}}</div>
           <div class="panel-body" *ngIf="member">
-                <div><span class="text--cap">ID: </span>{{member.externalMemberId}}</div>
+                <div><span class="text--cap">ID: </span>{{member.id}}</div>
+                <div><span class="text--cap">External ID: </span>{{member.externalMemberId}}</div>
                 <div><span class="text--cap">First name:</span> {{member.firstName}}</div>
                 <div><span class="text--cap">Last name: </span>{{member.lastName}}</div>
                 <div><span class="text--cap">Age: </span>{{member.age}}</div>

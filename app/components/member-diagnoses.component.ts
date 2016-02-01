@@ -3,6 +3,7 @@ import {Diagnosis} from "../model/diagnosis";
 import {MemberService} from '../services/member.service';
 import {OnChanges} from 'angular2/core';
 import {Member} from "../model/member";
+import {DiagnosisSearchResult} from "../model/diagnosis-search-result";
 
 
 @Component({
@@ -27,18 +28,21 @@ import {Member} from "../model/member";
 export class MemberDiagnosesComponent implements OnChanges{
     public member: Member;
     public title = 'Diagnoses';
-    public diagnoses:Diagnosis[];
+    public diagnoses:DiagnosisSearchResult[];
 
     constructor(private _memberService: MemberService) { }
 
-    getDiagnoses(member:Member) {
-        this._memberService.getMemberDiagnoses(member)
-            .then(diagnoses => this.diagnoses = diagnoses);
+    getDiagnosesMock(member:Member) {
+        this._memberService.getMemberDiagnoses(member).then(diagnoses => this.diagnoses = diagnoses);
+    }
+
+    getMemberDiagnosis() {
+        this._memberService.getDiagnosesFromTrucare(this.member).subscribe(res => {this.diagnoses = res.searchResults;});
     }
 
     ngOnChanges(){
         if(this.member) {
-            this.getDiagnoses(this.member);
+            this.getMemberDiagnosis();
         }
     }
 
