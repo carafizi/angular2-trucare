@@ -84,7 +84,8 @@ export class MemberService {
             "includeVoided": false,
             "reverseChronologicalOrder": false
     };
-        return this._http.post("http://localhost:8082/trucare-api/6.2/api/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers}).map((res:Response) => res.json());
+        return this._http.post("http://localhost:8082/trucare-api/6.2/api/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers})
+            .map((res:Response) => res.json());
     }
 
 

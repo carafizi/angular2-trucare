@@ -27,12 +27,6 @@ import {Headers} from "angular2/http";
                 {{member.firstName}}
                 {{member.lastName}}</a>
             </div>
-            <!--<div class="list-group">-->
-                <!--<a href="#" class="list-group-item" *ngFor="#member of trucareMembers"  (click)="onSelect(member)">-->
-                    <!--{{member.firstName}}-->
-                    <!--{{member.lastName}}-->
-                <!--</a>-->
-            <!--</div>-->
         </td>
         <td width="80%" valign="top">
             <div class="container-fluid">
