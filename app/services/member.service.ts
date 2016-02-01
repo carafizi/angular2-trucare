@@ -15,6 +15,8 @@ import {Headers} from "angular2/http";
 export class MemberService {
 
     token:string;
+    private fullUrl:string = "http://localhost:8082/trucare-api/6.2/api";
+    private url:string = "/trucare-api/6.2/api";
 
     constructor(private _http:Http) {
         this.token = localStorage.getItem('token');
@@ -61,20 +63,20 @@ export class MemberService {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-        return this._http.get('http://localhost:8082/trucare-api/6.2/api/member-list', headers).map((res:Response) => res.json());
+        return this._http.get(this.url + "/member-list", headers).map((res:Response) => res.json());
     }
 
     getAllergiesFromTrucare(member:Member) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
-        return this._http.get("http://localhost:8082/trucare-api/6.2/api/members/"+member.id+"/allergies", headers).map((res:Response) => res.json());
+        return this._http.get(this.url + "/members/" + member.id +"/allergies", headers).map((res:Response) => res.json());
     }
 
     getDiagnosesFromTrucare(member:Member) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
-        //headers.append("Accept", "application/json");
+        headers.append("Accept", "application/json");
         var searchCriteria={"startIndex": 0,
             "length": 10,
             "gotoLastPage": false,
@@ -84,8 +86,30 @@ export class MemberService {
             "includeVoided": false,
             "reverseChronologicalOrder": false
     };
-        return this._http.post("http://localhost:8082/trucare-api/6.2/api/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers})
+        return this._http.post(this.url +"/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers})
             .map((res:Response) => res.json());
+    }
+
+    searchMembers(searchtext:string){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        var searchCriteria={
+            "startIndex": 0,
+            "length": 10,
+            "gotoLastPage": false,
+            "lastName": ""+searchtext+"",
+            "firstName": ""
+        };
+        return this._http.post(this.url + "/members-search", JSON.stringify(searchCriteria), {headers:headers}).map((res:Response) => res.json());
+    }
+
+
+    addMember(memberId:string){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.put(this.url + "/member-list/" + memberId, "", {headers:headers}).map((res:Response) => res.json());
     }
 
 

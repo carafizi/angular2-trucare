@@ -8,6 +8,7 @@ import {MemberDiagnosesComponent} from "./member-diagnoses.component";
 import {TopMenuComponent} from "./top-menu.component";
 import {MemberDemographicsComponent} from "./member-demographics.component";
 import {MemberMenuComponent} from "./member-menu.component";
+import {MemberSearchComponent} from "./member-search.component";
 import {Headers} from "angular2/http";
 
 @Component({
@@ -37,12 +38,14 @@ import {Headers} from "angular2/http";
                     <div class="col-xs-4"><member-diagnoses [member]="selectedMember"></member-diagnoses></div>
                 </div>
             </div>
+
+            <div><member-search></member-search></div>
         </td>
     </tr>
 </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberSearchComponent],
     providers: [MemberService]
 })
 export class AppComponent implements OnInit {
