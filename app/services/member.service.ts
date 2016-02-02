@@ -10,6 +10,7 @@ import {DIAGNOSES_DESMOND} from "../data/diagnoses-list";
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 import {Headers} from "angular2/http";
+import {CreateAllergyRequest} from "../model/create-allergy-request";
 
 @Injectable()
 export class MemberService {
@@ -119,5 +120,17 @@ export class MemberService {
         return this._http.delete(this.url + "/member-list/" + memberId, {headers:headers}).map((res:Response) => res.json());
     }
 
+    getAllergyConfiguration(){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.get(this.url + "/allergy-configuration/", headers).map((res:Response) => res.json());
+    }
 
+    addAllergy(member:Member, createAllergyRequest:CreateAllergyRequest){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //headers.append("Accept", "application/json");
+        return this._http.post(this.url + "/members/" + member.id +"/allergies", JSON.stringify(createAllergyRequest), {headers:headers}).map((res:Response) => res.json());
+    }
 }
