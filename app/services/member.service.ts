@@ -12,6 +12,8 @@ import 'rxjs/Rx';
 import {Headers} from "angular2/http";
 import {CreateAllergyRequest} from "../model/create-allergy-request";
 import {CreateDiagnosisRequest} from "../model/create-diagnosis-request";
+import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
+import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
 
 @Injectable()
 export class MemberService {
@@ -55,84 +57,46 @@ export class MemberService {
         );
     }
 
-    // Uses http.get() to load from a public API
-    getPosts() {
-        return this._http.get('http://jsonplaceholder.typicode.com/posts').map((res:Response) => res.json());
+    addHeaders():Headers{
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return headers
     }
 
     // Uses http.get() to load members from the secure TC API
     getMembersFromTrucare() {
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.get(this.url + "/member-list", headers).map((res:Response) => res.json());
+        return this._http.get(this.url + "/member-list", this.addHeaders()).map((res:Response) => res.json());
     }
 
     getAllergiesFromTrucare(member:Member) {
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.get(this.url + "/members/" + member.id +"/allergies", headers).map((res:Response) => res.json());
+        return this._http.get(this.url + "/members/" + member.id +"/allergies", this.addHeaders()).map((res:Response) => res.json());
     }
 
-    searchMemberDiagnoses(member:Member) {
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        var searchCriteria={"startIndex": 0,
-            "length": 10,
-            "gotoLastPage": false,
-            "primaryOnly": false,
-            "includeOpen": true,
-            "includeClosed": false,
-            "includeVoided": false,
-            "reverseChronologicalOrder": false
-    };
-        return this._http.post(this.url +"/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers})
+    searchMemberDiagnoses(member:Member, diagnosisSearchCriteria:DiagnosisSearchCriteria) {
+        return this._http.post(this.url +"/members/" + member.id +"/diagnoses-search", JSON.stringify(diagnosisSearchCriteria), {headers:this.addHeaders()})
             .map((res:Response) => res.json());
     }
 
-    searchDiagnosisCodes(codeName:string){
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.get(this.url +"/diagnosis-codes?name=" +codeName,headers).map((res:Response)=>res.json());
+    searchDiagnosisCodes(diagnosisCodeCode:string, diagnosisCodeName:string){
+        return this._http.get(this.url +"/diagnosis-codes?code=" + diagnosisCodeCode + "&name=" + diagnosisCodeName, this.addHeaders()).map((res:Response)=>res.json());
     }
 
-    searchMembers(searchtext:string){
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        var searchCriteria={
-            "startIndex": 0,
-            "length": 10,
-            "gotoLastPage": false,
-            "lastName": ""+searchtext+"",
-            "firstName": ""
-        };
-        return this._http.post(this.url + "/members-search", JSON.stringify(searchCriteria), {headers:headers}).map((res:Response) => res.json());
+    searchMembers(memberSearchCriteria:MemberSearchCriteria){
+        return this._http.post(this.url + "/members-search", JSON.stringify(memberSearchCriteria), {headers:this.addHeaders()}).map((res:Response) => res.json());
     }
 
 
     addMember(memberId:string){
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.put(this.url + "/member-list/" + memberId, "", {headers:headers}).map((res:Response) => res.json());
+        return this._http.put(this.url + "/member-list/" + memberId, "", {headers:this.addHeaders()}).map((res:Response) => res.json());
     }
 
     deleteMember(memberId:string){
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.delete(this.url + "/member-list/" + memberId, {headers:headers}).map((res:Response) => res.json());
+        return this._http.delete(this.url + "/member-list/" + memberId, {headers:this.addHeaders()}).map((res:Response) => res.json());
     }
 
     getAllergyConfiguration(){
-        var headers = new Headers();
-        headers.append("Content-Type", "application/json");
-        headers.append("Accept", "application/json");
-        return this._http.get(this.url + "/allergy-configuration/", headers).map((res:Response) => res.json());
+        return this._http.get(this.url + "/allergy-configuration/", this.addHeaders()).map((res:Response) => res.json());
     }
 
     addAllergy(member:Member, createAllergyRequest:CreateAllergyRequest){

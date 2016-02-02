@@ -12,6 +12,7 @@ import {MemberSearchComponent} from "./member-search.component";
 import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
 import {MemberSearchResult} from "../model/member-search-result";
+import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
 
 @Component({
     selector: 'trucare-app',
@@ -30,7 +31,7 @@ import {MemberSearchResult} from "../model/member-search-result";
                     <!--<div><member-search [menumembers]="members"></member-search></div>-->
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <input class="form-control" placeholder="enter member name.." [(ngModel)]="searchCriteria"
+                            <input class="form-control" placeholder="enter member name.." [(ngModel)]="memberSearchCriteria.lastName"
                                    (keyup)="searchMembers()"/>
                         </div>
                     </div>
@@ -78,7 +79,7 @@ export class AppComponent implements OnInit, OnChanges {
     public title = 'List of Members';
     public selectedMember:Member;
     public members:Member[];
-    public searchCriteria:string;
+    public memberSearchCriteria:MemberSearchCriteria = new MemberSearchCriteria();
     public memberResults:MemberSearchResult[];
 
     constructor(private _memberService:MemberService) {}
@@ -101,13 +102,12 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     searchMembers() {
-        console.log(this.searchCriteria);
-        //console.log("MenuMembers in searchMembers = "+ this.menumembers);
-        if(this.searchCriteria && this.searchCriteria.length > 2) {
-            this._memberService.searchMembers(this.searchCriteria).subscribe(
+        console.log(this.memberSearchCriteria.lastName);
+        if(this.memberSearchCriteria.lastName && this.memberSearchCriteria.lastName.length > 2) {
+            this._memberService.searchMembers(this.memberSearchCriteria).subscribe(
                 res => {
                     this.memberResults = res.searchResults;
-                    this.searchCriteria="";
+                    this.memberSearchCriteria.lastName="";
                 }
             )}
     }

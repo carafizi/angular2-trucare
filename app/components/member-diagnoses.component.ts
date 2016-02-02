@@ -6,6 +6,7 @@ import {Member} from "../model/member";
 import {DiagnosisSearchResult} from "../model/diagnosis-search-result";
 import {CreateDiagnosisRequest} from "../model/create-diagnosis-request";
 import {DiagnosisCodeSearchResult} from "../model/diagnosis-code-search-results";
+import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
 
 
 @Component({
@@ -32,19 +33,34 @@ import {DiagnosisCodeSearchResult} from "../model/diagnosis-code-search-results"
                     <h1>Add Diagnosis</h1>
                     <form (ngSubmit)="addDiagnosis()" #diagnosisForm="ngForm">
 
-                    <div class="list-group">
-                         <input class="form-control" placeholder="enter dignosis.." [(ngModel)]="selectedCode.diagnosisName" (keyup)="searchDiagnosesCodes()"/>
-                    </div>
-                    <div class="list-group">
-                        <a href="#" class="list-group-item" *ngFor="#res of diagnosisCodeSearchResults"  (click)="selectCode(res)"
-                           style="background: cornsilk">{{res.diagnosisCode}} {{res.diagnosisName}}</a>
-                    </div>
+                        <div class="list-group">
+                            <div style="display: inline-block"><input width="10" class="form-control" placeholder="enter code.."
+                                                                      [(ngModel)]="selectedCode.diagnosisCode"
+                                                                      (keyup)="searchDiagnosesCodes()"/></div>
+                            <div style="display: inline-block"><input class="form-control" placeholder="enter name.."
+                                                                      [(ngModel)]="selectedCode.diagnosisName"
+                                                                      (keyup)="searchDiagnosesCodes()"/></div>
+                        </div>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item" *ngFor="#res of diagnosisCodeSearchResults"
+                               (click)="selectCode(res)"
+                               style="background: cornsilk">{{res.diagnosisCode}} {{res.diagnosisName}}</a>
+                        </div>
 
                         <div class="form-group">
                             <label for="reportedDate">Reported Date</label>
                             <input type="text" class="form-control" required [(ngModel)]="createDiagnosisRequest.reportedDate"
                                    ngControl="reportedDate" #reportedDate="ngForm">
                             <div [hidden]="reportedDate.valid" class="alert alert-danger">
+                                Reported date is required
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reportedBy">Reported By</label>
+                            <input type="text" class="form-control" required [(ngModel)]="createDiagnosisRequest.reportedBy"
+                                   ngControl="reportedBy" #reportedBy="ngForm">
+                            <div [hidden]="reportedBy.valid" class="alert alert-danger">
                                 Reported date is required
                             </div>
                         </div>
@@ -71,6 +87,7 @@ export class MemberDiagnosesComponent implements OnChanges{
     public selectedCode:DiagnosisCodeSearchResult = new DiagnosisCodeSearchResult();
 
     public diagnosisCodeSearchResults:DiagnosisCodeSearchResult[];
+    public diagnosisSearchCriteria = new DiagnosisSearchCriteria();
 
     constructor(private _memberService: MemberService) { }
 
@@ -79,7 +96,7 @@ export class MemberDiagnosesComponent implements OnChanges{
     }
 
     getMemberDiagnosis() {
-        this._memberService.searchMemberDiagnoses(this.member).subscribe(res => {this.diagnoses = res.searchResults;});
+        this._memberService.searchMemberDiagnoses(this.member, this.diagnosisSearchCriteria).subscribe(res => {this.diagnoses = res.searchResults;});
     }
 
     addDiagnosis(){
@@ -88,10 +105,11 @@ export class MemberDiagnosesComponent implements OnChanges{
         });
         this.submitted=true;
         this.getMemberDiagnosis();
+        this.cleanForm();
     }
 
     searchDiagnosesCodes(){
-        this._memberService.searchDiagnosisCodes(this.selectedCode.diagnosisName).subscribe(res=>{
+        this._memberService.searchDiagnosisCodes(this.selectedCode.diagnosisCode, this.selectedCode.diagnosisName).subscribe(res=>{
             this.diagnosisCodeSearchResults = res;
         })
     }
@@ -104,6 +122,11 @@ export class MemberDiagnosesComponent implements OnChanges{
         this.selectedCode = code;
         this.createDiagnosisRequest.diagnosisCodeId = code.id;
         this.diagnosisCodeSearchResults=[];
+    }
+
+    cleanForm(){
+        this.selectedCode.diagnosisCode = "";
+        this.selectedCode.diagnosisName="";
     }
 
     ngOnChanges(){

@@ -1,7 +1,5 @@
-export class DiagnosisSearchRequest {
-    startIndex:number = 0;
-    length:number = 10;
-    goToLastPage:boolean = false;
+import {SearchCriteria} from "./SearchCriteria";
+export class DiagnosisSearchCriteria extends SearchCriteria{
     primaryOnly:boolean = false;
     includeOpen:boolean = true;
     includeClosed:boolean = false;

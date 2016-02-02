@@ -90,7 +90,7 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
     public title = 'Allergies';
     public allergies:Allergy[];
     private allergyConfiguration:AllergyConfiguration;
-    public createAllergyRequest:CreateAllergyRequest = new CreateAllergyRequest("test");
+    public createAllergyRequest:CreateAllergyRequest = new CreateAllergyRequest();
     public submitted=true;
 
 
