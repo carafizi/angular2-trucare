@@ -7,6 +7,7 @@ import {DiagnosisSearchResult} from "../model/DiagnosisSearchResult";
 import {CreateDiagnosisRequest} from "../model/CreateDiagnosisRequest";
 import {DiagnosisCodeSearchResult} from "../model/DiagnosisCodeSearchResults";
 import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
+import {DiagnosisService} from "../services/DiagnosisService";
 
 
 @Component({
@@ -73,7 +74,7 @@ import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
             </div>
         </div>
         `,
-    providers: [MemberService]
+    providers: [MemberService, DiagnosisService]
 })
 export class MemberDiagnosesComponent implements OnChanges{
     @Input()
@@ -89,18 +90,14 @@ export class MemberDiagnosesComponent implements OnChanges{
     public diagnosisCodeSearchResults:DiagnosisCodeSearchResult[];
     public diagnosisSearchCriteria = new DiagnosisSearchCriteria();
 
-    constructor(private _memberService: MemberService) { }
-
-    getDiagnosesMock(member:Member) {
-        this._memberService.getMemberDiagnoses(member).then(diagnoses => this.diagnoses = diagnoses);
-    }
+    constructor(private _memberService: MemberService, private _diagnosisService:DiagnosisService) { }
 
     getMemberDiagnosis() {
-        this._memberService.searchMemberDiagnoses(this.member, this.diagnosisSearchCriteria).subscribe(res => {this.diagnoses = res.searchResults;});
+        this._diagnosisService.searchMemberDiagnoses(this.member, this.diagnosisSearchCriteria).subscribe(res => {this.diagnoses = res.searchResults;});
     }
 
     addDiagnosis(){
-        this._memberService.addDiagnosis(this.member, this.createDiagnosisRequest).subscribe(res=>{
+        this._diagnosisService.addDiagnosis(this.member, this.createDiagnosisRequest).subscribe(res=>{
 
         });
         this.submitted=true;
@@ -109,7 +106,7 @@ export class MemberDiagnosesComponent implements OnChanges{
     }
 
     searchDiagnosesCodes(){
-        this._memberService.searchDiagnosisCodes(this.selectedCode.diagnosisCode, this.selectedCode.diagnosisName).subscribe(res=>{
+        this._diagnosisService.searchDiagnosisCodes(this.selectedCode.diagnosisCode, this.selectedCode.diagnosisName).subscribe(res=>{
             this.diagnosisCodeSearchResults = res;
         })
     }

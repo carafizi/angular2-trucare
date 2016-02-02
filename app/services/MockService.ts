@@ -17,26 +17,43 @@ import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
 import {AppConfig} from "../AppConfig";
 
 @Injectable()
-export class MemberService {
+export class AllergyService {
 
+    token:string;
     private appConfig = new AppConfig();
 
-    constructor(private _http:Http) {}
+    constructor(private _http:Http) {
+        this.token = localStorage.getItem('token');
+    }
 
     getMembers() {
-        return this._http.get(this.appConfig.url + "/member-list", this.appConfig.headers).map((res:Response) => res.json());
+        return Promise.resolve(MEMBERS);
     }
 
-    searchMembers(memberSearchCriteria:MemberSearchCriteria){
-        return this._http.post(this.appConfig.url + "/members-search", JSON.stringify(memberSearchCriteria), {headers:this.appConfig.headers}).map((res:Response) => res.json());
+    getMemberAllergies(member:Member) {
+        if (member.lastName === "Hume") {
+            return Promise.resolve(ALLERGIES_DESMOND);
+        } else if (member.lastName === "Alpert") {
+            return Promise.resolve(ALLERGIES_RICHARD);
+        } else {
+            return Promise.resolve(ALLERGIES);
+        }
+
     }
 
+    getMemberDiagnoses(member:Member) {
+        if (member.lastName === "Hume") {
+            return Promise.resolve(DIAGNOSES_DESMOND);
+        } else if (member.lastName === "Alpert") {
+            return Promise.resolve(DIAGNOSES_RICHARD);
+        } else {
+            return Promise.resolve(DIAGNOSES);
+        }
 
-    addMember(memberId:string){
-        return this._http.put(this.appConfig.url + "/member-list/" + memberId, "", {headers:this.appConfig.headers}).map((res:Response) => res.json());
     }
 
-    deleteMember(memberId:string){
-        return this._http.delete(this.appConfig.url + "/member-list/" + memberId, {headers:this.appConfig.headers}).map((res:Response) => res.json());
+    getMembersSlowly() {
+        return new Promise<Member[]>(resolve =>setTimeout(()=>resolve(MEMBERS), 2000) // 2 seconds
+        );
     }
 }

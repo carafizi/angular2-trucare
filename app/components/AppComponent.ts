@@ -8,7 +8,6 @@ import {MemberDiagnosesComponent} from "./MemberDiagnosesComponent";
 import {TopMenuComponent} from "./TopMenuComponent";
 import {MemberDemographicsComponent} from "./MemberDemographicsComponent";
 import {MemberMenuComponent} from "./MemberMenuComponent";
-import {MemberSearchComponent} from "./MemberSearchComponent";
 import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
 import {MemberSearchResult} from "../model/MemberSearchResult";
@@ -42,11 +41,9 @@ import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
                     </div>
 
                     <div class="list-group">
-                        <a href="#" class="list-group-item" *ngFor="#member of members"
-                           [class.active]="member === selectedMember" (click)="onSelect(member)">
-                            {{member.firstName}}
-                            {{member.lastName}}
-                            <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
+                        <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
+                               <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
+                                {{member.firstName}} {{member.lastName}}
                         </a>
                     </div>
                 </td>
@@ -72,7 +69,7 @@ import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberSearchComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent],
     providers: [MemberService]
 })
 export class AppComponent implements OnInit, OnChanges {
@@ -89,13 +86,8 @@ export class AppComponent implements OnInit, OnChanges {
         this.memberSearchCriteria.lastName="";
     }
 
-    getMembersMock() {
-        this._memberService.getMembers()
-            .then(members => this.members = members);
-    }
-
     getMembers() {
-        this._memberService.getMembersFromTrucare().subscribe(res => {this.members = res.members});
+        this._memberService.getMembers().subscribe(res => {this.members = res.members});
     }
 
     removeMember(memberId:string){

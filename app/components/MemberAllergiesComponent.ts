@@ -1,6 +1,7 @@
 import {Component, Attribute, Input} from 'angular2/core';
 import {Allergy} from '../model/Allergy';
 import {MemberService} from '../services/MemberService';
+import {AllergyService} from '../services/AllergyService';
 import {OnInit, OnChanges} from 'angular2/core';
 import {Member} from "../model/Member";
 import {AllergyConfiguration} from "../model/AllergyConfiguration";
@@ -90,7 +91,7 @@ import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
     </div>
 </div>
 `,
-    providers: [MemberService]
+    providers: [MemberService, AllergyService]
 })
 export class MemberAllergiesComponent implements OnChanges, OnInit {
     @Input()
@@ -103,37 +104,29 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
     public submitted=true;
 
 
-    constructor(private _memberService:MemberService) {
+    constructor(private _memberService:MemberService, private _allergyService:AllergyService) {
     }
 
-    getAllergiesMock(member:Member) {
-        this._memberService.getMemberAllergies(this.member).then(res => this.allergies = res);
-    }
 
     getMemberAllergies() {
-        console.log("Fetching allergies");
-        this._memberService.getAllergiesFromTrucare(this.member).subscribe(res => {this.allergies = res});
+        this._allergyService.getAllergies(this.member).subscribe(res => {this.allergies = res});
     }
 
     getAllergyConfiguration(){
-        this._memberService.getAllergyConfiguration().subscribe(res=> this.allergyConfiguration = res)
+        this._allergyService.getAllergyConfiguration().subscribe(res=> this.allergyConfiguration = res)
     }
 
     onSubmit(){
-        this._memberService.addAllergy(this.member, this.createAllergyRequest).subscribe(res=> {
+        this._allergyService.addAllergy(this.member, this.createAllergyRequest).subscribe(res=> {
 
 
         });
         this.submitted=true;
-        console.log("Changed submitted" + this.submitted);
-        console.log("Before updating allergies");
         this.getMemberAllergies();
-        console.log("After updating allergies");
     }
 
     ngOnChanges(){
         if(this.member) {
-            console.log("in OnChange");
             this.getMemberAllergies();
         }
     }
