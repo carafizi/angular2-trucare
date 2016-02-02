@@ -1,4 +1,4 @@
-import {Allergy} from './../model/allergy';
+import {Allergy} from './../model/Allergy';
 
 export var ALLERGIES:Allergy[] = [
     {

@@ -1,5 +1,5 @@
-import {OptionValue} from "./option.value";
-import {DiagnosisCode} from "./diagnosis.code";
+import {OptionValue} from "./OptionValue.ts";
+import {DiagnosisCode} from "./DiagnosisCode.ts";
 export interface Diagnosis {
     id: string;
     reportedBy: string;

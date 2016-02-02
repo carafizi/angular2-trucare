@@ -1,86 +1,95 @@
 import {Component, Attribute, Input} from 'angular2/core';
-import {Allergy} from '../model/allergy';
-import {MemberService} from '../services/member.service';
+import {Allergy} from '../model/Allergy';
+import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
-import {Member} from "../model/member";
-import {AllergyConfiguration} from "../model/allergy-configuration";
-import {OptionValue} from "../model/option.value";
-import {CreateAllergyRequest} from "../model/create-allergy-request";
+import {Member} from "../model/Member";
+import {AllergyConfiguration} from "../model/AllergyConfiguration";
+import {OptionValue} from "../model/OptionValue.ts";
+import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
 
 
 @Component({
     selector: 'member-allergies',
     //templateUrl:'app/components/templates/member-allergies.component.html',
     template: `
-       <div class="panel panel-primary">
-          <div class="panel-heading">{{title}}</div>
-          <div class="panel-body" *ngIf="member">
-            <ul>
-                <li *ngFor="#allergy of allergies">
-                    <span class="text">{{allergy.allergy.label}}</span>-
-                    <span class="text">{{allergy.reaction.label}}</span>
-                </li>
-            </ul>
-             <div [hidden]="!submitted">
-                <button class="btn btn-default" type="button" id="addAllergyButton" (click)="showForm()">Add allergy</button>
-             </div>
+<div class="panel panel-primary">
+    <div class="panel-heading">{{title}}</div>
+    <div class="panel-body" *ngIf="member">
+        <ul>
+            <li *ngFor="#allergy of allergies">
+                <span class="text">{{allergy.allergy.label}}</span>-
+                <span class="text">{{allergy.reaction.label}}</span>
+            </li>
+        </ul>
+        <div [hidden]="!submitted">
+            <button class="btn btn-default" type="button" id="addAllergyButton" (click)="showForm()">Add allergy
+            </button>
+        </div>
 
-            <div [hidden]="submitted">
-                <h1>Add allergy</h1>
-                <form (ngSubmit)="onSubmit()" #allergyForm="ngForm">
+        <div [hidden]="submitted">
+            <h1>Add allergy</h1>
+            <form (ngSubmit)="onSubmit()" #allergyForm="ngForm">
 
-                 <div class="form-group">
+                <div class="form-group">
                     <label for="allergy">Allergy</label>
-                        <select class="form-control" required [(ngModel)]="createAllergyRequest.allergyOptionValueId" ngControl="allergy" #allergy="ngForm" >
-                          <option *ngFor="#p of allergyConfiguration.allergyOptions" [value]="p.id">{{p.value}}</option>
-                        </select>
+                    <select class="form-control" required [(ngModel)]="createAllergyRequest.allergyOptionValueId"
+                            ngControl="allergy" #allergy="ngForm">
+                        <option *ngFor="#o of allergyConfiguration.allergyOptions" [value]="o.id">{{o.value}}</option>
+                    </select>
                     <div [hidden]="allergy.valid" class="alert alert-danger">
-                      Allergy is required
+                        Allergy is required
                     </div>
-                  </div>
+                </div>
 
-                 <div class="form-group">
+                <div class="form-group">
                     <label for="reaction">Reaction</label>
-                        <select class="form-control" required [(ngModel)]="createAllergyRequest.reactionOptionValueId" ngControl="reaction" #reaction="ngForm" >
-                          <option *ngFor="#p of allergyConfiguration.reactionOptions" [value]="p.id">{{p.value}}</option>
-                        </select>
+                    <select class="form-control" required [(ngModel)]="createAllergyRequest.reactionOptionValueId"
+                            ngControl="reaction" #reaction="ngForm">
+                        <option *ngFor="#o of allergyConfiguration.reactionOptions" [value]="o.id">{{o.value}}</option>
+                    </select>
                     <div [hidden]="reaction.valid" class="alert alert-danger">
-                      Reaction is required
+                        Reaction is required
                     </div>
-                  </div>
+                </div>
 
-                  <div class="form-group">
+                <div class="form-group">
                     <label for="severity">Severity</label>
-                        <select class="form-control" required [(ngModel)]="createAllergyRequest.severityOptionValueId" ngControl="severity" #severity="ngForm" >
-                          <option *ngFor="#p of allergyConfiguration.severityOptions" [value]="p.id">{{p.value}}</option>
-                        </select>
+                    <select class="form-control" required [(ngModel)]="createAllergyRequest.severityOptionValueId"
+                            ngControl="severity" #severity="ngForm">
+                        <option *ngFor="#o of allergyConfiguration.severityOptions" [value]="o.id">{{o.value}}</option>
+                    </select>
                     <div [hidden]="severity.valid" class="alert alert-danger">
-                      Severity is required
+                        Severity is required
                     </div>
-                  </div>
+                </div>
 
-                  <div class="form-group">
+                <div class="form-group">
                     <label for="source">Source</label>
-                        <select class="form-control"  [(ngModel)]="createAllergyRequest.sourceOptionValueId" ngControl="source" #source="ngForm" >
-                          <option *ngFor="#p of allergyConfiguration.sourceOptions" [value]="p.id">{{p.value}}</option>
-                        </select>
-                  </div>
+                    <select class="form-control" [(ngModel)]="createAllergyRequest.sourceOptionValueId"
+                            ngControl="source" #source="ngForm">
+                        <option *ngFor="#o of allergyConfiguration.sourceOptions" [value]="o.id">{{o.value}}</option>
+                    </select>
+                </div>
 
 
-                  <div class="form-group">
+                <div class="form-group">
                     <label for="details">Allergy Detail</label>
-                    <input type="text" class="form-control" required [(ngModel)]="createAllergyRequest.allergyDetail" ngControl="details"  #details="ngForm" >
+                    <input type="text" class="form-control" required [(ngModel)]="createAllergyRequest.allergyDetail"
+                           ngControl="details" #details="ngForm">
                     <div [hidden]="details.valid" class="alert alert-danger">
-                      Allergy details is required
+                        Allergy details is required
                     </div>
-                  </div>
+                </div>
 
 
-                  <button type="submit" class="btn btn-default" [disabled]="!allergyForm.form.valid">Submit</button>
-                  <button class="btn btn-default" type="button" id="addAllergyButtonCancel" (click)="showForm()">Cancel</button>
-                </form>
-             </div>
-    `,
+                <button type="submit" class="btn btn-default" [disabled]="!allergyForm.form.valid">Submit</button>
+                <button class="btn btn-default" type="button" id="addAllergyButtonCancel" (click)="showForm()">Cancel
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+`,
     providers: [MemberService]
 })
 export class MemberAllergiesComponent implements OnChanges, OnInit {
@@ -115,8 +124,6 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
 
 
         });
-
-
         this.submitted=true;
         console.log("Changed submitted" + this.submitted);
         console.log("Before updating allergies");
@@ -133,6 +140,10 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
 
     showForm() {
         this.submitted = !this.submitted;
+    }
+
+    cleanForm(){
+
     }
 
     ngOnInit(){

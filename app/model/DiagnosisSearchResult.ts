@@ -1,4 +1,4 @@
-import {DiagnosisCode} from "./diagnosis.code";
+import {DiagnosisCode} from "./DiagnosisCode.ts";
 export interface DiagnosisSearchResult {
     id: string;
     reportedDate: string;

@@ -2,9 +2,9 @@ import {Component, Input} from 'angular2/core';
 import {NgForm} from 'angular2/common';
 import {ControlGroup} from "angular2/common";
 import {Control} from "angular2/common";
-import {MemberService} from "../services/member.service";
-import {Member} from "../model/member";
-import {MemberSearchResult} from "../model/member-search-result";
+import {MemberService} from "../services/MemberService";
+import {Member} from "../model/Member";
+import {MemberSearchResult} from "../model/MemberSearchResult";
 import {OnInit} from "angular2/core";
 
 
@@ -32,13 +32,13 @@ export class MemberSearchComponent implements OnInit{
 
     constructor(private _memberService:MemberService) {}
 
-    searchMembers() {
-        console.log(this.searchCriteria);
-        console.log("MenuMembers in searchMembers = "+ this.menumembers);
-        if(this.searchCriteria && this.searchCriteria.length > 2) {
-            this._memberService.searchMembers(this.searchCriteria).subscribe(res => {this.memberResults = res.searchResults});
-        }
-    }
+    //searchMembers() {
+    //    console.log(this.searchCriteria);
+    //    console.log("MenuMembers in searchMembers = "+ this.menumembers);
+    //    if(this.searchCriteria && this.searchCriteria.length > 2) {
+    //        this._memberService.searchMembers(this.searchCriteria).subscribe(res => {this.memberResults = res.searchResults});
+    //    }
+    //}
 
     addMember(memberId:string){
         console.log("MenuMembers before ADD = "+ this.menumembers);

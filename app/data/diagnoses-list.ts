@@ -1,5 +1,5 @@
-import {Diagnosis} from "../model/diagnosis";
-import {DiagnosisSearchResult} from "../model/diagnosis-search-result";
+import {Diagnosis} from "../model/Diagnosis";
+import {DiagnosisSearchResult} from "../model/DiagnosisSearchResult";
 
 export var DIAGNOSES:DiagnosisSearchResult[] = [
     {

@@ -1,5 +1,5 @@
-import {OptionValue} from "./option.value";
-import {VoidConfig} from "./void-config";
+import {OptionValue} from "./OptionValue.ts";
+import {VoidConfig} from "./VoidConfig";
 export interface AllergyConfiguration {
     voidConfig: VoidConfig;
     allergyOptions: OptionValue[];

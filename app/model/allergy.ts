@@ -1,4 +1,4 @@
-import {OptionValue} from "./option.value";
+import {OptionValue} from "./OptionValue.ts";
 export interface Allergy {
     id: string;
     allergy: OptionValue;

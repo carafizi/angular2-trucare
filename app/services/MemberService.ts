@@ -1,6 +1,6 @@
 import {MEMBERS} from '../data/members-list';
 import {Injectable} from 'angular2/core';
-import {Member} from "../model/member";
+import {Member} from "../model/Member";
 import {ALLERGIES} from "../data/allergies-list";
 import {DIAGNOSES} from "../data/diagnoses-list";
 import {ALLERGIES_RICHARD} from "../data/allergies-list";
@@ -10,8 +10,8 @@ import {DIAGNOSES_DESMOND} from "../data/diagnoses-list";
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 import {Headers} from "angular2/http";
-import {CreateAllergyRequest} from "../model/create-allergy-request";
-import {CreateDiagnosisRequest} from "../model/create-diagnosis-request";
+import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
+import {CreateDiagnosisRequest} from "../model/CreateDiagnosisRequest";
 import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
 import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
 

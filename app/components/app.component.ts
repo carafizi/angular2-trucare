@@ -1,7 +1,7 @@
 import {Component} from 'angular2/core';
-import {Member} from '../model/member';
+import {Member} from '../model/Member';
 import {MemberDetailComponent} from './member-detail.component';
-import {MemberService} from '../services/member.service';
+import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
 import {MemberAllergiesComponent} from "./member-allergies.component";
 import {MemberDiagnosesComponent} from "./member-diagnoses.component";
@@ -11,7 +11,7 @@ import {MemberMenuComponent} from "./member-menu.component";
 import {MemberSearchComponent} from "./member-search.component";
 import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
-import {MemberSearchResult} from "../model/member-search-result";
+import {MemberSearchResult} from "../model/MemberSearchResult";
 import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
 
 @Component({
@@ -86,6 +86,7 @@ export class AppComponent implements OnInit, OnChanges {
 
     onSelect(member:Member) {
         this.selectedMember = member;
+        this.memberSearchCriteria.lastName="";
     }
 
     getMembersMock() {
@@ -102,21 +103,16 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     searchMembers() {
-        console.log(this.memberSearchCriteria.lastName);
         if(this.memberSearchCriteria.lastName && this.memberSearchCriteria.lastName.length > 2) {
-            this._memberService.searchMembers(this.memberSearchCriteria).subscribe(
-                res => {
+            this._memberService.searchMembers(this.memberSearchCriteria).subscribe(res => {
                     this.memberResults = res.searchResults;
-                    this.memberSearchCriteria.lastName="";
                 }
             )}
     }
 
     addMember(memberId:string){
-        //console.log("MenuMembers before ADD = "+ this.menumembers);
         this._memberService.addMember(memberId).subscribe(res => {
             this.members=res.members;
-            //console.log("MenuMembers after ADD = "+ this.menumembers);
             this.memberResults = []
         });
     }
