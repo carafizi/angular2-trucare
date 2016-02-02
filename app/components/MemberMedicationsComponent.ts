@@ -26,8 +26,7 @@ import {Drug} from "../model/Drug";
 
                 <ul>
                     <li *ngFor="#med of medications">
-                        <!--<span class="text&#45;&#45;cap">{{med.drug.id}}</span>-->
-                        <span class="text">{{med.drug.name}}</span>
+                        <span class="text" *ngIf="med.drug">{{med.drug.name}}</span>
                     </li>
                 </ul>
 
