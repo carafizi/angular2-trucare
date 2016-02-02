@@ -4,7 +4,7 @@ import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
 import {Member} from "../model/Member";
 import {AllergyConfiguration} from "../model/AllergyConfiguration";
-import {OptionValue} from "../model/OptionValue.ts";
+import {OptionValue} from "../model/OptionValue";
 import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
 
 
