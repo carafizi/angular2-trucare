@@ -17,7 +17,7 @@ import {Member} from "../model/Member";
                 <div><span class="text--cap">First name:</span> {{member.firstName}}</div>
                 <div><span class="text--cap">Last name: </span>{{member.lastName}}</div>
                 <div><span class="text--cap">Age: </span>{{member.age}}</div>
-                <div><span class="text--cap">Gender: </span>{{member.gender.value}}</div>
+                <div *ngIf="member.gender"><span class="text--cap">Gender: </span>{{member.gender.value}}</div>
                 <div><span class="text--cap">Date of birth: </span>{{member.birthDate}}</div>
           </div>
         </div>

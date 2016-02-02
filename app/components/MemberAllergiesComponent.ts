@@ -120,6 +120,7 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
         this._allergyService.addAllergy(this.member, this.createAllergyRequest).subscribe(res=> {
             this.submitted=true;
             this.getMemberAllergies();
+            this.cleanForm()
         });
 
     }
@@ -135,7 +136,10 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
     }
 
     cleanForm(){
-
+        this.createAllergyRequest.allergyDetail ="";
+        this.createAllergyRequest.allergyOptionValueId ="";
+        this.createAllergyRequest.reactionOptionValueId = "";
+        this.createAllergyRequest.severityOptionValueId = "";
     }
 
     ngOnInit(){
