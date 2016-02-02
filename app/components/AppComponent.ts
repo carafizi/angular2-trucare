@@ -12,6 +12,9 @@ import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
 import {MemberSearchResult} from "../model/MemberSearchResult";
 import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
+import {MedicationService} from "../services/MedicationService";
+import {ExtendedAttributesConfiguration} from "../model/ExtendedAttributesConfiguration";
+import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
 
 @Component({
     selector: 'trucare-app',
@@ -57,8 +60,11 @@ import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
                                 <member-demographics [member]="selectedMember"></member-demographics>
                             </div>
                             <div class="col-xs-4">
-                                <member-allergies [member]="selectedMember"></member-allergies>
+                                <member-medications  [member]="selectedMember"></member-medications>
                             </div>
+                            <!--<div class="col-xs-4">-->
+                                <!--<member-allergies [member]="selectedMember"></member-allergies>-->
+                            <!--</div>-->
                             <div class="col-xs-4">
                                 <member-diagnoses [member]="selectedMember"></member-diagnoses>
                             </div>
@@ -69,8 +75,8 @@ import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent],
-    providers: [MemberService]
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent],
+    providers: [MemberService, MedicationService]
 })
 export class AppComponent implements OnInit, OnChanges {
     public title = 'List of Members';
@@ -78,8 +84,9 @@ export class AppComponent implements OnInit, OnChanges {
     public members:Member[];
     public memberSearchCriteria:MemberSearchCriteria = new MemberSearchCriteria();
     public memberResults:MemberSearchResult[];
+    public medicationConfiguration:ExtendedAttributesConfiguration;
 
-    constructor(private _memberService:MemberService) {}
+    constructor(private _memberService:MemberService, private _medicationService:MedicationService) {}
 
     onSelect(member:Member) {
         this.selectedMember = member;
@@ -88,6 +95,7 @@ export class AppComponent implements OnInit, OnChanges {
 
     getMembers() {
         this._memberService.getMembers().subscribe(res => {this.members = res.members});
+        this._medicationService.getMedicationConfiguration().subscribe(res => {this.medicationConfiguration = res});
     }
 
     removeMember(memberId:string){

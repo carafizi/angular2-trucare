@@ -35,10 +35,10 @@ import {DiagnosisService} from "../services/DiagnosisService";
                     <form (ngSubmit)="addDiagnosis()" #diagnosisForm="ngForm">
 
                         <div class="list-group">
-                            <div style="display: inline-block"><input width="10" class="form-control" placeholder="enter code.."
+                            <div style="display: inline-block; width: 20%"><input  class="form-control" placeholder="code.."
                                                                       [(ngModel)]="selectedCode.diagnosisCode"
                                                                       (keyup)="searchDiagnosesCodes()"/></div>
-                            <div style="display: inline-block"><input class="form-control" placeholder="enter name.."
+                            <div style="display: inline-block"><input class="form-control" placeholder="diagnosis name.."
                                                                       [(ngModel)]="selectedCode.diagnosisName"
                                                                       (keyup)="searchDiagnosesCodes()"/></div>
                         </div>
