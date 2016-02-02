@@ -90,6 +90,8 @@ export class MemberDiagnosesComponent implements OnChanges{
     public diagnosisCodeSearchResults:DiagnosisCodeSearchResult[];
     public diagnosisSearchCriteria = new DiagnosisSearchCriteria();
 
+    private createdDiagnosisId;
+
     constructor(private _memberService: MemberService, private _diagnosisService:DiagnosisService) { }
 
     getMemberDiagnosis() {
@@ -97,12 +99,12 @@ export class MemberDiagnosesComponent implements OnChanges{
     }
 
     addDiagnosis(){
-        this._diagnosisService.addDiagnosis(this.member, this.createDiagnosisRequest).subscribe(res=>{
-
+        this._diagnosisService.addDiagnosis(this.member, this.createDiagnosisRequest).subscribe(res=> {
+            this.submitted=true;
+            this.getMemberDiagnosis();
+            this.cleanForm();
         });
-        this.submitted=true;
-        this.getMemberDiagnosis();
-        this.cleanForm();
+
     }
 
     searchDiagnosesCodes(){

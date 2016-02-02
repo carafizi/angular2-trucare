@@ -118,11 +118,10 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
 
     onSubmit(){
         this._allergyService.addAllergy(this.member, this.createAllergyRequest).subscribe(res=> {
-
-
+            this.submitted=true;
+            this.getMemberAllergies();
         });
-        this.submitted=true;
-        this.getMemberAllergies();
+
     }
 
     ngOnChanges(){

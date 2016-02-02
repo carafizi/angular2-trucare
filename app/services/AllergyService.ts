@@ -27,6 +27,6 @@ export class AllergyService {
     addAllergy(member:Member, createAllergyRequest:CreateAllergyRequest){
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
-        return this._http.post(this.appConfig.url + "/members/" + member.id +"/allergies", JSON.stringify(createAllergyRequest), {headers:headers}).map((res:Response) => res.json());
+        return this._http.post(this.appConfig.url + "/members/" + member.id +"/allergies", JSON.stringify(createAllergyRequest), {headers:headers}).map((res:Response) => res);
     }
 }

@@ -29,6 +29,6 @@ export class DiagnosisService {
     addDiagnosis(member:Member, createDiagnosisRequest:CreateDiagnosisRequest){
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
-        return this._http.post(this.appConfig.url + "/members/" + member.id +"/diagnoses", JSON.stringify(createDiagnosisRequest), {headers:headers}).map((res:Response) => res.json());
+        return this._http.post(this.appConfig.url + "/members/" + member.id +"/diagnoses", JSON.stringify(createDiagnosisRequest), {headers:headers}).map((res:Response) => res);
     }
 }
