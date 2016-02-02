@@ -11,6 +11,7 @@ import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 import {Headers} from "angular2/http";
 import {CreateAllergyRequest} from "../model/create-allergy-request";
+import {CreateDiagnosisRequest} from "../model/create-diagnosis-request";
 
 @Injectable()
 export class MemberService {
@@ -74,7 +75,7 @@ export class MemberService {
         return this._http.get(this.url + "/members/" + member.id +"/allergies", headers).map((res:Response) => res.json());
     }
 
-    getDiagnosesFromTrucare(member:Member) {
+    searchMemberDiagnoses(member:Member) {
         var headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Accept", "application/json");
@@ -89,6 +90,13 @@ export class MemberService {
     };
         return this._http.post(this.url +"/members/" + member.id +"/diagnoses-search", JSON.stringify(searchCriteria), {headers:headers})
             .map((res:Response) => res.json());
+    }
+
+    searchDiagnosisCodes(codeName:string){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        headers.append("Accept", "application/json");
+        return this._http.get(this.url +"/diagnosis-codes?name=" +codeName,headers).map((res:Response)=>res.json());
     }
 
     searchMembers(searchtext:string){
@@ -132,5 +140,12 @@ export class MemberService {
         headers.append("Content-Type", "application/json");
         //headers.append("Accept", "application/json");
         return this._http.post(this.url + "/members/" + member.id +"/allergies", JSON.stringify(createAllergyRequest), {headers:headers}).map((res:Response) => res.json());
+    }
+
+    addDiagnosis(member:Member, createDiagnosisRequest:CreateDiagnosisRequest){
+        var headers = new Headers();
+        headers.append("Content-Type", "application/json");
+        //headers.append("Accept", "application/json");
+        return this._http.post(this.url + "/members/" + member.id +"/diagnoses", JSON.stringify(createDiagnosisRequest), {headers:headers}).map((res:Response) => res.json());
     }
 }

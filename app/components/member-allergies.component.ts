@@ -22,7 +22,7 @@ import {CreateAllergyRequest} from "../model/create-allergy-request";
                 </li>
             </ul>
              <div [hidden]="!submitted">
-                <button class="btn btn-default" type="button" id="addAllergyForm" (click)="showForm()">Add allergy</button>
+                <button class="btn btn-default" type="button" id="addAllergyButton" (click)="showForm()">Add allergy</button>
              </div>
 
             <div [hidden]="submitted">
@@ -77,7 +77,7 @@ import {CreateAllergyRequest} from "../model/create-allergy-request";
 
 
                   <button type="submit" class="btn btn-default" [disabled]="!allergyForm.form.valid">Submit</button>
-                  <button class="btn btn-default" type="button" id="addAllergyForm" (click)="showForm()">Cancel</button>
+                  <button class="btn btn-default" type="button" id="addAllergyButtonCancel" (click)="showForm()">Cancel</button>
                 </form>
              </div>
     `,

@@ -18,44 +18,57 @@ import {MemberSearchResult} from "../model/member-search-result";
     //templateUrl: 'app/components/templates/app.component.html',
     template:
     `
-    <table>
-    <tr>
-        <td></td>
-        <td align="right"><top-menu></top-menu></td>
-    </tr>
-    <tr>
-        <td valign="top" width="15%" style="padding-right: 10px">
-            <!--<div><member-search [menumembers]="members"></member-search></div>-->
-            <div class="panel panel-default">
-                <div class="panel-body">
-                   <input class="form-control" placeholder="enter member name.." [(ngModel)]="searchCriteria" (keyup)="searchMembers()" />
-                </div>
-            </div>
+        <table>
+            <tr>
+                <td></td>
+                <td align="right">
+                    <top-menu></top-menu>
+                </td>
+            </tr>
+            <tr>
+                <td valign="top" width="15%" style="padding-right: 10px">
+                    <!--<div><member-search [menumembers]="members"></member-search></div>-->
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <input class="form-control" placeholder="enter member name.." [(ngModel)]="searchCriteria"
+                                   (keyup)="searchMembers()"/>
+                        </div>
+                    </div>
 
-        <div class="list-group">
-                <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)" style="background: cornsilk">{{member.firstName}} {{member.lastName}}</a>
-        </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item" *ngFor="#member of memberResults" (click)="addMember(member.id)"
+                           style="background: cornsilk">{{member.firstName}} {{member.lastName}}</a>
+                    </div>
 
-            <div class="list-group">
-                <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
-                    {{member.firstName}}
-                    {{member.lastName}}
-                    <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
-                </a>
-            </div>
-        </td>
-        <td width="80%" valign="top">
-            <div class="container-fluid">
-                <div class="row" style="height: 60px"><member-menu></member-menu></div>
-                <div class="row" style="height: 300px">
-                    <div class="col-xs-4"><member-demographics [member]="selectedMember"></member-demographics></div>
-                    <div class="col-xs-4"><member-allergies [member]="selectedMember"></member-allergies></div>
-                    <div class="col-xs-4"><member-diagnoses [member]="selectedMember"></member-diagnoses></div>
-                </div>
-            </div>
-        </td>
-    </tr>
-</table>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item" *ngFor="#member of members"
+                           [class.active]="member === selectedMember" (click)="onSelect(member)">
+                            {{member.firstName}}
+                            {{member.lastName}}
+                            <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
+                        </a>
+                    </div>
+                </td>
+                <td width="80%" valign="top">
+                    <div class="container-fluid">
+                        <div class="row" style="height: 60px">
+                            <member-menu></member-menu>
+                        </div>
+                        <div class="row" style="height: 300px">
+                            <div class="col-xs-4">
+                                <member-demographics [member]="selectedMember"></member-demographics>
+                            </div>
+                            <div class="col-xs-4">
+                                <member-allergies [member]="selectedMember"></member-allergies>
+                            </div>
+                            <div class="col-xs-4">
+                                <member-diagnoses [member]="selectedMember"></member-diagnoses>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
     directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberSearchComponent],
@@ -96,7 +109,7 @@ export class AppComponent implements OnInit, OnChanges {
                     this.memberResults = res.searchResults;
                     this.searchCriteria="";
                 }
-            )};
+            )}
     }
 
     addMember(memberId:string){
