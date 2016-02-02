@@ -121,7 +121,7 @@ export class MemberMedicationsComponent implements OnChanges{
 
     selectDrug(drugSearchResult:SimpleDrug){
         this.selectedDrug.id = drugSearchResult.id;
-        this.selectedDrug.name = drugSearchResult.description
+        this.selectedDrug.name = drugSearchResult.description;
         this.createMedicationRequest.drugId = drugSearchResult.id;
         this.drugsSearchResults=[];
     }
