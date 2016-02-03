@@ -44,10 +44,12 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
                     </div>
 
                     <div class="list-group">
-                        <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
-                               <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
-                                {{member.firstName}} {{member.lastName}}
-                        </a>
+                        <div class="pre-scrollable">
+                            <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
+                                   <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
+                                    {{member.firstName}} {{member.lastName}}
+                            </a>
+                         </div>
                     </div>
                 </td>
                 <td width="80%" valign="top">
