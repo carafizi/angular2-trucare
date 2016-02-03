@@ -14,6 +14,8 @@ import {MedicationService} from "../services/MedicationService";
 import {CreateMedicationRequest} from "../model/CreateMedicationRequest";
 import {SimpleDrug} from "../model/SimpleDrug";
 import {Drug} from "../model/Drug";
+import {ExtendedAttributesConfiguration} from "../model/ExtendedAttributesConfiguration";
+import {OnInit} from "angular2/core";
 
 
 @Component({
@@ -51,6 +53,16 @@ import {Drug} from "../model/Drug";
                                style="background: cornsilk">{{drug.id}} {{drug.description}}</a>
                         </div>
 
+                        <div class="form-group">
+                            <label for="frequency">Frequency</label>
+                            <select class="form-control" required [(ngModel)]="createMedicationRequest.frequencyOption" ngControl="frequency" #frequency="ngForm">
+                                <option *ngFor="#o of medicationConfiguration.optionFieldMap.frequencyOption.optionValues" [value]="o.value">{{o.label}}</option>
+                            </select>
+                            <div [hidden]="frequency.valid" class="alert alert-danger">
+                                Frequency is required
+                            </div>
+                        </div>
+
                         <!--<div class="form-group">-->
                             <!--<label for="reportedDate">Reported Date</label>-->
                             <!--<input type="text" class="form-control" required [(ngModel)]="createDiagnosisRequest.reportedDate"-->
@@ -71,22 +83,27 @@ import {Drug} from "../model/Drug";
 
 
                         <button type="submit" class="btn btn-default" [disabled]="!medicationForm.form.valid">Submit</button>
-                        <button class="btn btn-default" type="button" id="addMedicationForm" (click)="showForm()">Cancel</button>
+                        <button class="btn btn-default" type="button" id="addMedicationForm" (click)="cancelForm()">Cancel</button>
                     </form>
+                    <p></p>
+                    <div class="list-group">
+                        <div class="alert alert-danger" *ngIf="errorMsg" >{{errorMsg}}</div>
+                    </div>
+
                 </div>
             </div>
         </div>
         `,
     providers: [MemberService, MedicationService]
 })
-export class MemberMedicationsComponent implements OnChanges{
+export class MemberMedicationsComponent implements OnChanges, OnInit {
     @Input()
-    public member: Member;
+    public member:Member;
 
     public title = 'Medications';
     public medications:MedicationSearchResult[];
     public createMedicationRequest:CreateMedicationRequest = new CreateMedicationRequest();
-    public submitted=true;
+    public submitted = true;
     public drugsSearchResults:SimpleDrug[];
 
     public selectedDrug:Drug = new Drug();
@@ -94,45 +111,80 @@ export class MemberMedicationsComponent implements OnChanges{
     public medicationSearchResults:MedicationSearchResult[];
     public medicationSearchCriteria = new MedicationSearchCriteria();
 
+    public medicationConfiguration:ExtendedAttributesConfiguration;
 
-    constructor(private _memberService: MemberService, private _medicationService:MedicationService) { }
+    public errorMsg;
+
+
+    constructor(private _memberService:MemberService, private _medicationService:MedicationService) {
+    }
 
     getMemberMedications() {
-        this._medicationService.searchMemberMedications(this.member, this.medicationSearchCriteria).subscribe(res => {this.medications = res.searchResults;});
-    }
-
-    addMedication(){
-        this._medicationService.addMedication(this.member, this.createMedicationRequest).subscribe(res=> {
-            this.submitted=true;
-            this.getMemberMedications();
-            this.cleanForm();
+        this._medicationService.searchMemberMedications(this.member, this.medicationSearchCriteria).subscribe(res => {
+            this.medications = res.searchResults;
         });
+    }
+
+    getMemberConfiguration() {
+        this._medicationService.getMedicationConfiguration().subscribe(res => {
+            this.medicationConfiguration = res
+        });
+    }
+
+    addMedication() {
+        this._medicationService.addMedication(this.member, this.createMedicationRequest).subscribe(
+            res=> {
+                this.submitted = true;
+                this.getMemberMedications();
+                this.cleanForm();
+            },
+            err=>{
+                console.log(err);
+                var err_json = JSON.parse(err.text());
+                this.errorMsg = err_json.details;
+                console.log("ERROR=" + this.errorMsg);
+            }
+        );
 
     }
 
-    searchDrugs(){
-        this._medicationService.searchDrugs(this.selectedDrug.name).subscribe(res=>{this.drugsSearchResults = res})
+    searchDrugs() {
+        this._medicationService.searchDrugs(this.selectedDrug.name).subscribe(res=> {
+            this.drugsSearchResults = res
+        })
     }
 
     showForm() {
         this.submitted = !this.submitted;
     }
 
-    selectDrug(drugSearchResult:SimpleDrug){
+    selectDrug(drugSearchResult:SimpleDrug) {
         this.selectedDrug.id = drugSearchResult.id;
         this.selectedDrug.name = drugSearchResult.description;
         this.createMedicationRequest.drugId = drugSearchResult.id;
-        this.drugsSearchResults=[];
+        this.drugsSearchResults = [];
+    }
+
+    cancelForm() {
+        this.submitted = true;
+        this.cleanForm();
+
     }
 
     cleanForm(){
         this.selectedDrug.name = "";
-        this.selectedDrug.id= "";
-        this.selectedDrug.description= "";
+        this.selectedDrug.id = "";
+        this.selectedDrug.description = "";
+        this.createMedicationRequest.drugId="";
+        this.errorMsg="";
     }
 
-    ngOnChanges(){
-        if(this.member) {
+    ngOnInit() {
+        this.getMemberConfiguration();
+    }
+
+    ngOnChanges() {
+        if (this.member) {
             this.getMemberMedications();
         }
     }

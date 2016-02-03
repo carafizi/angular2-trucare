@@ -84,9 +84,9 @@ export class AppComponent implements OnInit, OnChanges {
     public members:Member[];
     public memberSearchCriteria:MemberSearchCriteria = new MemberSearchCriteria();
     public memberResults:MemberSearchResult[];
-    public medicationConfiguration:ExtendedAttributesConfiguration;
 
-    constructor(private _memberService:MemberService, private _medicationService:MedicationService) {}
+
+    constructor(private _memberService:MemberService) {}
 
     onSelect(member:Member) {
         this.selectedMember = member;
@@ -95,7 +95,6 @@ export class AppComponent implements OnInit, OnChanges {
 
     getMembers() {
         this._memberService.getMembers().subscribe(res => {this.members = res.members});
-        this._medicationService.getMedicationConfiguration().subscribe(res => {this.medicationConfiguration = res});
     }
 
     removeMember(memberId:string){
