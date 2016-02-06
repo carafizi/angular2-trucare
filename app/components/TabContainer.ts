@@ -27,51 +27,35 @@ export class TabContainer {
     }
 
     selectTab(tab) {
-
-        _deactivateAllTabs(this.tabs);
-        tab.active = true;
-
-        function _deactivateAllTabs(tabs:Tab[]) {
-            tabs.forEach((tab)=>tab.active = false);
-        }
-
-    }
-
-    _deactivateAllTabs() {
+        //deactivate all tabs
         this.tabs.forEach((tab)=>tab.active = false);
+        tab.active = true;
     }
 
-    addTab(tab:Tab) {
-        if (this.tabs.length === 0) {
+    addTab(member:Member) {
+        console.log("Param:" + member);
+        if (this.tabExists(member.firstName + " " + member.lastName)) {
+            var tab = new Tab(member);
             tab.active = true;
-        }
-        this.tabs.push(tab);
-    }
-
-    addNewTab(member:Member) {
-        console.log("Param:"+member);
-        if(this.tabExists(member.firstName + " " + member.lastName)) {
-            var tab = new Tab(this);
-            tab.title = member.firstName + " " + member.lastName;
-            tab.member = member;
-            tab.active = true;
+            this.tabs.push(tab);
         }
     }
 
-    tabExists(title:string):boolean{
-        var tabExists=false;
-        var elementPos = this.tabs.map(function(x) {return x.title; }).indexOf(title);
+    tabExists(title:string):boolean {
+        var tabExists = false;
+        var elementPos = this.tabs.map(function (x) {
+            return x.title;
+        }).indexOf(title);
         console.log(elementPos);
-        if(elementPos==-1){
+        if (elementPos == -1) {
             tabExists = true;
         }
         return tabExists;
     }
 
 
-    deleteTab(tab:Tab){
+    deleteTab(tab:Tab) {
         var index = this.tabs.indexOf(tab, 0);
-        console.log("Index=" + index);
         if (index != undefined) {
             this.tabs.splice(index, 1);
         }

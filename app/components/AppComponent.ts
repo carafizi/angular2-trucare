@@ -32,8 +32,6 @@ import {TabContainer} from "./TabContainer";
             </tr>
             <tr>
                 <td valign="top" width="15%" style="padding-right: 10px">
-                    <!--<div><member-search [menumembers]="members"></member-search></div>-->
-                    <button class="btn btn-default" type="button" id="addaTab" (click)="tabc.addNewTab(selectedMember)">Add Tab</button>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <input class="form-control" placeholder="enter member name.." [(ngModel)]="memberSearchCriteria.lastName"
@@ -49,7 +47,7 @@ import {TabContainer} from "./TabContainer";
                     <div class="list-group">
                         <div class="pre-scrollable">
                             <!--<a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember"  (click)="onSelect(member)">-->
-                            <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember"  (click)="tabc.addNewTab(member)">
+                            <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember"  (click)="tabc.addTab(member)">
                                    <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
                                     {{member.firstName}} {{member.lastName}}
                             </a>
@@ -107,7 +105,7 @@ export class AppComponent implements OnInit, OnChanges {
         this.memberSearchCriteria.lastName="";
         console.log("TABC:" + this.tabc);
         if(this.tabc) {
-            this.tabc.addNewTab(this.selectedMember);
+            this.tabc.addTab(this.selectedMember);
         }
     }
 
