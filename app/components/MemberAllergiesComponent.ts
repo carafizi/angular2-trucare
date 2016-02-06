@@ -31,46 +31,46 @@ import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
             <h1>Add allergy</h1>
             <form (ngSubmit)="onSubmit()" #allergyForm="ngForm">
 
-                <div class="form-group">
-                    <label for="allergy">Allergy</label>
-                    <select class="form-control" required [(ngModel)]="createAllergyRequest.allergyOptionValueId"
-                            ngControl="allergy" #allergy="ngForm">
-                        <option *ngFor="#o of allergyConfiguration.allergyOptions" [value]="o.id">{{o.value}}</option>
-                    </select>
-                    <div [hidden]="allergy.valid" class="alert alert-danger">
-                        Allergy is required
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="allergy">Allergy</label>-->
+                    <!--<select class="form-control" required [(ngModel)]="createAllergyRequest.allergyOptionValueId"-->
+                            <!--ngControl="allergy" #allergy="ngForm">-->
+                        <!--<option *ngFor="#o of allergyConfiguration.allergyOptions" [value]="o.id">{{o.value}}</option>-->
+                    <!--</select>-->
+                    <!--<div [hidden]="allergy.valid" class="alert alert-danger">-->
+                        <!--Allergy is required-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="form-group">
-                    <label for="reaction">Reaction</label>
-                    <select class="form-control" required [(ngModel)]="createAllergyRequest.reactionOptionValueId"
-                            ngControl="reaction" #reaction="ngForm">
-                        <option *ngFor="#o of allergyConfiguration.reactionOptions" [value]="o.id">{{o.value}}</option>
-                    </select>
-                    <div [hidden]="reaction.valid" class="alert alert-danger">
-                        Reaction is required
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="reaction">Reaction</label>-->
+                    <!--<select class="form-control" required [(ngModel)]="createAllergyRequest.reactionOptionValueId"-->
+                            <!--ngControl="reaction" #reaction="ngForm">-->
+                        <!--<option *ngFor="#o of allergyConfiguration.reactionOptions" [value]="o.id">{{o.value}}</option>-->
+                    <!--</select>-->
+                    <!--<div [hidden]="reaction.valid" class="alert alert-danger">-->
+                        <!--Reaction is required-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="form-group">
-                    <label for="severity">Severity</label>
-                    <select class="form-control" required [(ngModel)]="createAllergyRequest.severityOptionValueId"
-                            ngControl="severity" #severity="ngForm">
-                        <option *ngFor="#o of allergyConfiguration.severityOptions" [value]="o.id">{{o.value}}</option>
-                    </select>
-                    <div [hidden]="severity.valid" class="alert alert-danger">
-                        Severity is required
-                    </div>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="severity">Severity</label>-->
+                    <!--<select class="form-control" required [(ngModel)]="createAllergyRequest.severityOptionValueId"-->
+                            <!--ngControl="severity" #severity="ngForm">-->
+                        <!--<option *ngFor="#o of allergyConfiguration.severityOptions" [value]="o.id">{{o.value}}</option>-->
+                    <!--</select>-->
+                    <!--<div [hidden]="severity.valid" class="alert alert-danger">-->
+                        <!--Severity is required-->
+                    <!--</div>-->
+                <!--</div>-->
 
-                <div class="form-group">
-                    <label for="source">Source</label>
-                    <select class="form-control" [(ngModel)]="createAllergyRequest.sourceOptionValueId"
-                            ngControl="source" #source="ngForm">
-                        <option *ngFor="#o of allergyConfiguration.sourceOptions" [value]="o.id">{{o.value}}</option>
-                    </select>
-                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="source">Source</label>-->
+                    <!--<select class="form-control" [(ngModel)]="createAllergyRequest.sourceOptionValueId"-->
+                            <!--ngControl="source" #source="ngForm">-->
+                        <!--<option *ngFor="#o of allergyConfiguration.sourceOptions" [value]="o.id">{{o.value}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
 
 
                 <div class="form-group">
@@ -99,34 +99,44 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
 
     public title = 'Allergies';
     public allergies:Allergy[];
-    private allergyConfiguration:AllergyConfiguration;
+    public allergyConfiguration:AllergyConfiguration;
     public createAllergyRequest:CreateAllergyRequest = new CreateAllergyRequest();
-    public submitted=true;
+    public submitted = true;
 
 
     constructor(private _memberService:MemberService, private _allergyService:AllergyService) {
+        console.log("AllergyConstructor");
+        this.getAllergyConfiguration();
     }
 
 
     getMemberAllergies() {
-        this._allergyService.getAllergies(this.member).subscribe(res => {this.allergies = res});
+        this._allergyService.getAllergies(this.member).subscribe(res => {
+            this.allergies = res
+        });
     }
 
-    getAllergyConfiguration(){
-        this._allergyService.getAllergyConfiguration().subscribe(res=> this.allergyConfiguration = res)
+    getAllergyConfiguration() {
+        console.log("AC1");
+        this._allergyService.getAllergyConfiguration().subscribe(res=> {
+            console.log("AC2");
+            console.log("res="+res);
+            this.allergyConfiguration = res;
+        });
+        console.log("AC3");
     }
 
-    onSubmit(){
+    onSubmit() {
         this._allergyService.addAllergy(this.member, this.createAllergyRequest).subscribe(res=> {
-            this.submitted=true;
+            this.submitted = true;
             this.getMemberAllergies();
             this.cleanForm()
         });
 
     }
 
-    ngOnChanges(){
-        if(this.member) {
+    ngOnChanges() {
+        if (this.member) {
             this.getMemberAllergies();
         }
     }
@@ -135,14 +145,15 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
         this.submitted = !this.submitted;
     }
 
-    cleanForm(){
-        this.createAllergyRequest.allergyDetail ="";
-        this.createAllergyRequest.allergyOptionValueId ="";
+    cleanForm() {
+        this.createAllergyRequest.allergyDetail = "";
+        this.createAllergyRequest.allergyOptionValueId = "";
         this.createAllergyRequest.reactionOptionValueId = "";
         this.createAllergyRequest.severityOptionValueId = "";
     }
 
-    ngOnInit(){
-        this.getAllergyConfiguration();
+    ngOnInit() {
+        console.log("AllergyOnInit");
+        //this.getAllergyConfiguration();
     }
 }

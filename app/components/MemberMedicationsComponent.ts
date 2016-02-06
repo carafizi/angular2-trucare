@@ -126,9 +126,12 @@ export class MemberMedicationsComponent implements OnChanges, OnInit {
     }
 
     getMemberConfiguration() {
+        console.log("getMemberConf1")
         this._medicationService.getMedicationConfiguration().subscribe(res => {
+            console.log("getMemberConf2===" + res)
             this.medicationConfiguration = res
         });
+        console.log("getMemberConf3")
     }
 
     addMedication() {
@@ -181,6 +184,7 @@ export class MemberMedicationsComponent implements OnChanges, OnInit {
 
     ngOnInit() {
         this.getMemberConfiguration();
+        console.log("On init med configuraion=" + this.medicationConfiguration)
     }
 
     ngOnChanges() {

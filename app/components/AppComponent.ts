@@ -69,12 +69,12 @@ import {TabContainer} from "./TabContainer";
                                 <!--<div class="col-xs-4">-->
                                     <!--<member-medications  [member]="selectedMember"></member-medications>-->
                                 <!--</div>-->
-                                <!--&lt;!&ndash;<div class="col-xs-4">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<member-allergies [member]="selectedMember"></member-allergies>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                <!--&lt;!&ndash;<div class="col-xs-4">&ndash;&gt;-->
-                                    <!--&lt;!&ndash;<member-diagnoses [member]="selectedMember"></member-diagnoses>&ndash;&gt;-->
-                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--<div class="col-xs-4">-->
+                                    <!--<member-allergies [member]="selectedMember"></member-allergies>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-4">-->
+                                    <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
+                                <!--</div>-->
                             <!--</tab>-->
                           </tab-container>
 
@@ -103,10 +103,6 @@ export class AppComponent implements OnInit, OnChanges {
     onSelect(member:Member) {
         this.selectedMember = member;
         this.memberSearchCriteria.lastName="";
-        console.log("TABC:" + this.tabc);
-        if(this.tabc) {
-            this.tabc.addTab(this.selectedMember);
-        }
     }
 
     getMembers() {
