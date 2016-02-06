@@ -1,11 +1,11 @@
 import {Injectable} from 'angular2/core';
-import {Member} from "../model/Member";
+import {Member} from "../model/member/Member";
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
 import {AppConfig} from "../AppConfig";
 import {Headers} from "angular2/http";
-import {CreateMedicationRequest} from "../model/CreateMedicationRequest";
-import {MedicationSearchCriteria} from "../model/MedicationSearchCriteria";
+import {CreateMedicationRequest} from "../model/clinical/CreateMedicationRequest";
+import {MedicationSearchCriteria} from "../model/clinical/MedicationSearchCriteria";
 
 @Injectable()
 export class MedicationService {

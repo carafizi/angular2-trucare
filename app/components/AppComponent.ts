@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Member} from '../model/Member';
+import {Member} from '../model/member/Member';
 import {MemberDetailComponent} from './MemberDetailComponent';
 import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
@@ -10,10 +10,10 @@ import {MemberDemographicsComponent} from "./MemberDemographicsComponent";
 import {MemberMenuComponent} from "./MemberMenuComponent";
 import {Headers} from "angular2/http";
 import {ElementRef} from "angular2/core";
-import {MemberSearchResult} from "../model/MemberSearchResult";
-import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
+import {MemberSearchResult} from "../model/member/MemberSearchResult";
+import {MemberSearchCriteria} from "../model/member/MemberSearchCriteria";
 import {MedicationService} from "../services/MedicationService";
-import {ExtendedAttributesConfiguration} from "../model/ExtendedAttributesConfiguration";
+import {ExtendedAttributesConfiguration} from "../model/common/ExtendedAttributesConfiguration";
 import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
 
 @Component({

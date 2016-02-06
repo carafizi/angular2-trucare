@@ -1,6 +1,6 @@
-import {User} from "../model/User";
-import {Drug} from "../model/Drug";
-import {OptionValue} from "./OptionValue";
+import {User} from "../User";
+import {Drug} from "../common/Drug";
+import {OptionValue} from "./../common/OptionValue";
 export class MedicationSearchResult{
     id:string;
     dateAdded:string;

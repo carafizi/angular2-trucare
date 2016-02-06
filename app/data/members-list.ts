@@ -1,4 +1,4 @@
-import {Member} from './../model/Member';
+import {Member} from './../model/member/Member';
 
 export var MEMBERS:Member[] = [
     {

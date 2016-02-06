@@ -1,4 +1,4 @@
-import {SearchCriteria} from "./SearchCriteria";
+import {SearchCriteria} from "./../common/SearchCriteria";
 export class MedicationSearchCriteria extends SearchCriteria{
     drugId:string;
     status:string="OPEN";

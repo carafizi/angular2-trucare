@@ -1,12 +1,12 @@
 import {Component, Input} from 'angular2/core';
-import {Diagnosis} from "../model/Diagnosis";
+import {Diagnosis} from "../model/clinical/Diagnosis";
 import {MemberService} from '../services/MemberService';
 import {OnChanges} from 'angular2/core';
-import {Member} from "../model/Member";
-import {DiagnosisSearchResult} from "../model/DiagnosisSearchResult";
-import {CreateDiagnosisRequest} from "../model/CreateDiagnosisRequest";
-import {DiagnosisCodeSearchResult} from "../model/DiagnosisCodeSearchResults";
-import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
+import {Member} from "../model/member/Member";
+import {DiagnosisSearchResult} from "../model/clinical/DiagnosisSearchResult";
+import {CreateDiagnosisRequest} from "../model/clinical/CreateDiagnosisRequest";
+import {DiagnosisCodeSearchResult} from "../model/clinical/DiagnosisCodeSearchResults";
+import {DiagnosisSearchCriteria} from "../model/clinical/DiagnosisSearchCriteria";
 import {DiagnosisService} from "../services/DiagnosisService";
 
 

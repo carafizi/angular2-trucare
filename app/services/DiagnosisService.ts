@@ -1,10 +1,10 @@
 import {MEMBERS} from '../data/members-list';
 import {Injectable} from 'angular2/core';
-import {Member} from "../model/Member";
+import {Member} from "../model/member/Member";
 import {Http, Response} from 'angular2/http';
 import 'rxjs/Rx';
-import {CreateDiagnosisRequest} from "../model/CreateDiagnosisRequest";
-import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
+import {CreateDiagnosisRequest} from "../model/clinical/CreateDiagnosisRequest";
+import {DiagnosisSearchCriteria} from "../model/clinical/DiagnosisSearchCriteria";
 import {AppConfig} from "../AppConfig";
 import {Headers} from "angular2/http";
 

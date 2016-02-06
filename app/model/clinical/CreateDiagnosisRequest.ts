@@ -1,4 +1,4 @@
-import {OptionValue} from "./OptionValue.ts";
+import {OptionValue} from "./../common/OptionValue.ts";
 export class CreateDiagnosisRequest {
     diagnosisCodeId: string;
     primaryDiagnosis:boolean = false;

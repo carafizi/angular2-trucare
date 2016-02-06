@@ -1,8 +1,8 @@
 import {Component, Attribute, Input} from 'angular2/core';
-import {Allergy} from '../model/Allergy';
+import {Allergy} from '../model/clinical/Allergy';
 import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
-import {Member} from "../model/Member";
+import {Member} from "../model/member/Member";
 
 
 @Component({

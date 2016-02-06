@@ -1,4 +1,4 @@
-import {SearchCriteria} from "./SearchCriteria";
+import {SearchCriteria} from "./../common/SearchCriteria";
 export class DiagnosisSearchCriteria extends SearchCriteria{
     primaryOnly:boolean = false;
     includeOpen:boolean = true;

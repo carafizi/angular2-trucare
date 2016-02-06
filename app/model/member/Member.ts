@@ -1,4 +1,4 @@
-import {OptionValue} from "./OptionValue.ts";
+import {OptionValue} from "./../common/OptionValue.ts";
 export interface Member {
     id: string;
     firstName: string;

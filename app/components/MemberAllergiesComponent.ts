@@ -1,12 +1,12 @@
 import {Component, Attribute, Input} from 'angular2/core';
-import {Allergy} from '../model/Allergy';
+import {Allergy} from '../model/clinical/Allergy';
 import {MemberService} from '../services/MemberService';
 import {AllergyService} from '../services/AllergyService';
 import {OnInit, OnChanges} from 'angular2/core';
-import {Member} from "../model/Member";
-import {AllergyConfiguration} from "../model/AllergyConfiguration";
-import {OptionValue} from "../model/OptionValue";
-import {CreateAllergyRequest} from "../model/CreateAllergyRequest";
+import {Member} from "../model/member/Member";
+import {AllergyConfiguration} from "../model/clinical/AllergyConfiguration";
+import {OptionValue} from "../model/common/OptionValue";
+import {CreateAllergyRequest} from "../model/clinical/CreateAllergyRequest";
 
 
 @Component({

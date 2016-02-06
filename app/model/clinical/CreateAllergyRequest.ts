@@ -1,4 +1,4 @@
-import {OptionValue} from "./OptionValue.ts";
+import {OptionValue} from "./../common/OptionValue.ts";
 export class CreateAllergyRequest {
     allergyOptionValueId: string;
     reactionOptionValueId:string;

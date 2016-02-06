@@ -1,4 +1,4 @@
-import {OptionValue} from "./OptionValue.ts";
+import {OptionValue} from "./../common/OptionValue.ts";
 import {DiagnosisCode} from "./DiagnosisCode.ts";
 export interface Diagnosis {
     id: string;

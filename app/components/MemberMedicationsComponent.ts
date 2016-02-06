@@ -1,20 +1,20 @@
 import {Component, Input} from 'angular2/core';
-import {Diagnosis} from "../model/Diagnosis";
+import {Diagnosis} from "../model/clinical/Diagnosis";
 import {MemberService} from '../services/MemberService';
 import {OnChanges} from 'angular2/core';
-import {Member} from "../model/Member";
-import {DiagnosisSearchResult} from "../model/DiagnosisSearchResult";
-import {CreateDiagnosisRequest} from "../model/CreateDiagnosisRequest";
-import {DiagnosisCodeSearchResult} from "../model/DiagnosisCodeSearchResults";
-import {DiagnosisSearchCriteria} from "../model/DiagnosisSearchCriteria";
+import {Member} from "../model/member/Member";
+import {DiagnosisSearchResult} from "../model/clinical/DiagnosisSearchResult";
+import {CreateDiagnosisRequest} from "../model/clinical/CreateDiagnosisRequest";
+import {DiagnosisCodeSearchResult} from "../model/clinical/DiagnosisCodeSearchResults";
+import {DiagnosisSearchCriteria} from "../model/clinical/DiagnosisSearchCriteria";
 import {DiagnosisService} from "../services/DiagnosisService";
-import {MedicationSearchCriteria} from "../model/MedicationSearchCriteria";
-import {MedicationSearchResult} from "../model/MedicationSearchResult";
+import {MedicationSearchCriteria} from "../model/clinical/MedicationSearchCriteria";
+import {MedicationSearchResult} from "../model/clinical/MedicationSearchResult";
 import {MedicationService} from "../services/MedicationService";
-import {CreateMedicationRequest} from "../model/CreateMedicationRequest";
-import {SimpleDrug} from "../model/SimpleDrug";
-import {Drug} from "../model/Drug";
-import {ExtendedAttributesConfiguration} from "../model/ExtendedAttributesConfiguration";
+import {CreateMedicationRequest} from "../model/clinical/CreateMedicationRequest";
+import {SimpleDrug} from "../model/common/SimpleDrug";
+import {Drug} from "../model/common/Drug";
+import {ExtendedAttributesConfiguration} from "../model/common/ExtendedAttributesConfiguration";
 import {OnInit} from "angular2/core";
 
 
