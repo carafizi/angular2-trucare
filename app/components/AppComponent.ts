@@ -1,4 +1,4 @@
-import {Component} from 'angular2/core';
+import {Component, Input} from 'angular2/core';
 import {Member} from '../model/Member';
 import {MemberDetailComponent} from './MemberDetailComponent';
 import {MemberService} from '../services/MemberService';
@@ -15,6 +15,8 @@ import {MemberSearchCriteria} from "../model/MemberSearchCriteria";
 import {MedicationService} from "../services/MedicationService";
 import {ExtendedAttributesConfiguration} from "../model/ExtendedAttributesConfiguration";
 import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
+import {Tab} from "./Tab";
+import {TabContainer} from "./TabContainer";
 
 @Component({
     selector: 'trucare-app',
@@ -31,6 +33,7 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
             <tr>
                 <td valign="top" width="15%" style="padding-right: 10px">
                     <!--<div><member-search [menumembers]="members"></member-search></div>-->
+                    <button class="btn btn-default" type="button" id="addaTab" (click)="tabc.addNewTab(selectedMember)">Add Tab</button>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <input class="form-control" placeholder="enter member name.." [(ngModel)]="memberSearchCriteria.lastName"
@@ -45,7 +48,8 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
 
                     <div class="list-group">
                         <div class="pre-scrollable">
-                            <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember" (click)="onSelect(member)">
+                            <!--<a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember"  (click)="onSelect(member)">-->
+                            <a href="#" class="list-group-item" *ngFor="#member of members" [class.active]="member === selectedMember"  (click)="tabc.addNewTab(member)">
                                    <span class="glyphicon glyphicon-remove" (click)="removeMember(member.id)"></span>
                                     {{member.firstName}} {{member.lastName}}
                             </a>
@@ -55,21 +59,27 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
                 <td width="80%" valign="top">
                     <div class="container-fluid">
                         <div class="row" style="height: 60px">
-                            <member-menu></member-menu>
+                            <member-menu #tabm [tabm]="tabm"></member-menu>
                         </div>
                         <div class="row" style="height: 300px">
-                            <div class="col-xs-4">
-                                <member-demographics [member]="selectedMember"></member-demographics>
-                            </div>
-                            <div class="col-xs-4">
-                                <member-medications  [member]="selectedMember"></member-medications>
-                            </div>
-                            <!--<div class="col-xs-4">-->
-                                <!--<member-allergies [member]="selectedMember"></member-allergies>-->
-                            <!--</div>-->
-                            <div class="col-xs-4">
-                                <member-diagnoses [member]="selectedMember"></member-diagnoses>
-                            </div>
+
+                        <tab-container #tabc [tabc]="tabc" [member]="selectedMember">
+                            <!--<tab [member]="selectedMember">-->
+                               <!--<div class="col-xs-4">-->
+                                    <!--<member-demographics [member]="selectedMember"></member-demographics>-->
+                                <!--</div>-->
+                                <!--<div class="col-xs-4">-->
+                                    <!--<member-medications  [member]="selectedMember"></member-medications>-->
+                                <!--</div>-->
+                                <!--&lt;!&ndash;<div class="col-xs-4">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<member-allergies [member]="selectedMember"></member-allergies>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="col-xs-4">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<member-diagnoses [member]="selectedMember"></member-diagnoses>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--</tab>-->
+                          </tab-container>
+
                         </div>
                     </div>
                 </td>
@@ -77,7 +87,7 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent, Tab, TabContainer],
     providers: [MemberService, MedicationService]
 })
 export class AppComponent implements OnInit, OnChanges {
@@ -86,6 +96,8 @@ export class AppComponent implements OnInit, OnChanges {
     public members:Member[];
     public memberSearchCriteria:MemberSearchCriteria = new MemberSearchCriteria();
     public memberResults:MemberSearchResult[];
+    @Input()
+    public tabc:TabContainer;
 
 
     constructor(private _memberService:MemberService) {}
@@ -93,6 +105,10 @@ export class AppComponent implements OnInit, OnChanges {
     onSelect(member:Member) {
         this.selectedMember = member;
         this.memberSearchCriteria.lastName="";
+        console.log("TABC:" + this.tabc);
+        if(this.tabc) {
+            this.tabc.addNewTab(this.selectedMember);
+        }
     }
 
     getMembers() {
