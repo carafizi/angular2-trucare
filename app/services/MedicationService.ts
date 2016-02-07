@@ -18,6 +18,10 @@ export class MedicationService {
         return this._http.get(this.appConfig.url + "/members/" + member.id +"/medications/" + medicationId, this.appConfig.headers).map((res:Response) => res.json());
     }
 
+    getMemberMedicationByCodeId(member:Member, medicationCodeId:string){
+        return this._http.get(this.appConfig.url + "/members/" + member.id +"/medications/regimen/" + medicationCodeId, this.appConfig.headers).map((res:Response) => res.json());
+    }
+
     searchMemberMedications(member:Member, medicationSearchCriteria:MedicationSearchCriteria){
         return this._http.post(this.appConfig.url +"/members/" + member.id +"/medications-search", JSON.stringify(medicationSearchCriteria), {headers:this.appConfig.headers})
             .map((res:Response) => res.json());

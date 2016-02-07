@@ -15,6 +15,7 @@ import {MemberSearchCriteria} from "../model/member/MemberSearchCriteria";
 import {MedicationService} from "../services/MedicationService";
 import {ExtendedAttributesConfiguration} from "../model/common/ExtendedAttributesConfiguration";
 import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
+import {MedicationsSummaryComponent} from "./MedicationsSummaryComponent";
 
 @Component({
     selector: 'trucare-app',
@@ -58,18 +59,27 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
                             <member-menu></member-menu>
                         </div>
                         <div class="row" style="height: 300px">
-                            <div class="col-xs-4">
-                                <member-demographics [member]="selectedMember"></member-demographics>
-                            </div>
-                            <div class="col-xs-4">
-                                <member-medications  [member]="selectedMember"></member-medications>
-                            </div>
-                            <!--<div class="col-xs-4">-->
-                                <!--<member-allergies [member]="selectedMember"></member-allergies>-->
-                            <!--</div>-->
-                            <div class="col-xs-4">
-                                <member-diagnoses [member]="selectedMember"></member-diagnoses>
-                            </div>
+                            <table style="width: 1500px">
+                                <tr >
+                                    <div class="col-xs-4">
+                                        <member-demographics [member]="selectedMember"></member-demographics>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <member-allergies [member]="selectedMember"></member-allergies>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <member-diagnoses [member]="selectedMember"></member-diagnoses>
+                                    </div>
+                                </tr>
+                                <tr>
+                                    <div class="col-xs-4">
+                                        <member-medications  [member]="selectedMember"></member-medications>
+                                    </div>
+                                    <div class="col-xs-8">
+                                        <medications-summary [member]="selectedMember"></medications-summary>
+                                    </div>
+                                </tr>
+                             </table>
                         </div>
                     </div>
                 </td>
@@ -77,7 +87,7 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent, MedicationsSummaryComponent],
     providers: [MemberService, MedicationService]
 })
 export class AppComponent implements OnInit, OnChanges {
