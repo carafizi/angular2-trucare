@@ -45,7 +45,7 @@ import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
                     <tr *ngFor="#med of medicationsToDisplay"  (click)="getMemberMedicationByCodeId(med.drug.id)" [class.active]="med === selectedMedications">
                         <!--<td *ngFor="#col of columns">{{med[col.name]}}</td>-->
                         <td ><a hreg="#">{{med.id}}</a></td>
-                        <td >{{med.drug.name}}</td>
+                        <td ><span *ngIf="med.drug">{{med.drug.name}}</span></td>
                         <td >{{med.dateAdded}}</td>
                         <td >{{med.active}}</td>
                         <td >{{med.voidInfoExists}}</td>
@@ -53,7 +53,7 @@ import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
                 </table>
 
                 <div>
-                <h1>Medication regimens summary</h1>
+                <h3>Medication regimens summary</h3>
                     <table class="table table-striped">
                     <tr>
                         <td ><a (click)="sort(col.name)">Medication</a></td>
