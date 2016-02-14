@@ -39,4 +39,9 @@ export class MemberService {
     deleteMember(memberId:string){
         return this._http.delete(this.appConfig.url + "/member-list/" + memberId, {headers:this.appConfig.headers}).map((res:Response) => res.json());
     }
+
+
+    getMemberDetails(memberId:string){
+        return this._http.get(this.appConfig.url + "/members/" + memberId + "/member-details", {headers:this.appConfig.headers}).map((res:Response) => res.json());
+    }
 }

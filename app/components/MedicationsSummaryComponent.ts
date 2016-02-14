@@ -38,15 +38,12 @@ import {RouteParams} from "angular2/router";
                      <input class="form-control" placeholder="enter medication id.." [(ngModel)]="searchCriteria.name" (keyup)="filterMedications()"/>
                 </div>
 
-                <!--<grid [rows]="medications" [columns]="columns" [title]="title"></grid>-->
-
 
                 <table class="table table-striped">
                     <tr>
                         <td *ngFor="#col of columns"><a (click)="sort(col.name)">{{col.descr}}</a></td>
                     </tr>
                     <tr *ngFor="#med of medicationsToDisplay"  (click)="getMemberMedicationByCodeId(med.drug.id)" [class.active]="med === selectedMedications">
-                        <!--<td *ngFor="#col of columns">{{med[col.name]}}</td>-->
                         <td ><a hreg="#">{{med.id}}</a></td>
                         <td ><span *ngIf="med.drug">{{med.drug.name}}</span></td>
                         <td >{{med.dateAdded}}</td>
@@ -94,10 +91,10 @@ import {RouteParams} from "angular2/router";
     pipes: [MedicationSearchPipe]
 })
 export class MedicationsSummaryComponent implements OnChanges, OnInit {
-    @Input()
-    public member:Member= new Member();
 
-    public title = 'Medications Summary';
+    public member:Member;
+
+    public title = 'Medications Summary: ';
     public medications:MedicationSearchResult[] = [];
     public medicationsToDisplay:MedicationSearchResult[] = [];
     public createMedicationRequest:CreateMedicationRequest = new CreateMedicationRequest();
@@ -106,7 +103,6 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
 
     public selectedDrug:Drug = new Drug();
 
-    public medicationSearchResults:MedicationSearchResult[];
     public medicationSearchCriteria = new MedicationSearchCriteria();
 
     public medicationConfiguration:ExtendedAttributesConfiguration;
@@ -114,33 +110,29 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
     public selectedMedications:Medication[];
 
     public errorMsg;
-    columns:Array<Column>;
 
     sorter = new Sorter();
 
     public searchCriteria = {id: "", name: ""};
 
-    @Input()
-    public memberid:string;
-
 
     constructor(private _memberService:MemberService, private _medicationService:MedicationService, private _router:Router, private _routeParams:RouteParams) {
-        this.columns = this.getColumns();
-        this.memberid = _routeParams.get('memberid');
-        this.member.id = this.memberid;
-
-        console.log("member in  on constructor=" + JSON.stringify(this.member))
-        console.log("memberid in  on constructor=" + this.memberid)
+        this.member = new Member();
+        this.member.id = _routeParams.get('memberid');
     }
 
-    getColumns():Array<Column> {
-        return [
-            new Column('id', 'id', 'ID'),
-            new Column('name', 'drug.name', 'Medication'),
-            new Column('dateAdded', 'dateAdded', 'Date added'),
-            new Column('active', 'active', 'Status'),
-            new Column('voidInfoExists', 'voidInfoExists', 'Voided')
-        ];
+    getMember(){
+        this._memberService.getMemberDetails(this._routeParams.get('memberid')).subscribe(res => {
+            this.member = new Member();
+            this.member.id = res.id;
+            this.member.firstName = res.firstName;
+            this.member.lastName = res.lastName;
+            this.member.gender = res.gender;
+            this.member.birthDate = res.dateOfBirth;
+            this.member.displayName = res.firstName + " " + res.lastName;
+            this.member.externalMemberId = res.externalMemberId;
+            this.title = this.title + ( res.firstName + " " + res.lastName);
+        });
     }
 
     filterMedications() {
@@ -197,6 +189,7 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
     }
 
     ngOnInit() {
+        this.getMember();
         this.getMemberConfiguration();
         if (this.member) {
             this.getMemberMedications();

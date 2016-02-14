@@ -64,31 +64,10 @@ import {Router} from "angular2/router";
 
 
 
-                          <router-outlet [member]="selectedMember"></router-outlet>
+                          <router-outlet></router-outlet>
 
 
-                          <!--<member-dashboard [member]="selectedMember"></member-dashboard>-->
-                            <!--<table style="width: 1500px">-->
-                                <!--<tr >-->
-                                    <!--<div class="col-xs-4">-->
-                                        <!--<member-demographics [member]="selectedMember"></member-demographics>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-xs-4">-->
-                                        <!--<member-allergies [member]="selectedMember"></member-allergies>-->
-                                    <!--</div>-->
-                                    <!--<div class="col-xs-4">-->
-                                        <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
-                                    <!--</div>-->
-                                <!--</tr>-->
-                                <!--<tr>-->
-                                    <!--<div class="col-xs-4">-->
-                                        <!--<member-medications  [member]="selectedMember"></member-medications>-->
-                                    <!--</div>-->
-                                    <!--&lt;!&ndash;<div class="col-xs-8">&ndash;&gt;-->
-                                        <!--&lt;!&ndash;<medications-summary [member]="selectedMember"></medications-summary>&ndash;&gt;-->
-                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                                <!--</tr>-->
-                             <!--</table>-->
+
                         </div>
                     </div>
                 </td>
@@ -96,8 +75,8 @@ import {Router} from "angular2/router";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent, MedicationsSummaryComponent, ROUTER_DIRECTIVES],
-    providers: [MemberService, MedicationService]
+    directives: [TopMenuComponent, MemberMenuComponent, ROUTER_DIRECTIVES],
+    providers: [MemberService]
 })
 @RouteConfig([
     {path:'/trucare-api/ng2/demographics',  name: 'MemberDashboard', component: MemberDashboardComponent},

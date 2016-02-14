@@ -19,8 +19,8 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
 
     <div class="panel panel-primary" style="width: 100%">
       <div class="panel-heading">{{title}}</div>
-      <div class="panel-body" *ngIf="member">
-        <table style="width: 1500px">
+      <div class="panel-body" *ngIf="selectedMember">
+        <table style="width: 1500px" *ngIf="selectedMember">
             <tr >
                 <div class="col-xs-4">
                     <member-demographics [member]="selectedMember"></member-demographics>
@@ -41,32 +41,43 @@ import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
      </div>
      </div>
     `,
-    directives:[MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMedicationsComponent]
+    directives:[MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMedicationsComponent],
+    providers:[MemberService]
 })
 export class MemberDashboardComponent implements OnChanges, OnInit {
 
 
-    @Input()
-    public member:Member= new Member();
+    //@Input()
+    public member:Member;
 
-    public selectedMember:Member= new Member();
+    public selectedMember:Member;
 
-    @Input()
-    public memberid:string;
+    public title = "Member Dashboard: ";
 
-    public title = "Member Dashboard";
-
-    constructor(private _router:Router, private _routeParams:RouteParams) {
-        this.memberid = _routeParams.get('memberid');
-        this.selectedMember.id = this.memberid;
+    constructor(private _router:Router, private _routeParams:RouteParams, private _memberService:MemberService) {
     }
 
+    getMember(){
+        this._memberService.getMemberDetails(this._routeParams.get('memberid')).subscribe(res => {
+            this.selectedMember = new Member();
+            this.selectedMember.id = res.id;
+            this.selectedMember.firstName = res.firstName;
+            this.selectedMember.lastName = res.lastName;
+            this.selectedMember.gender = res.gender;
+            this.selectedMember.birthDate = res.dateOfBirth;
+            this.selectedMember.displayName = res.firstName + " " + res.lastName;
+            this.selectedMember.externalMemberId = res.externalMemberId;
+            this.title = this.title + ( res.firstName + " " + res.lastName);
+        });
+
+        console.log("RES in getMember = " + JSON.stringify(this.selectedMember));
+    }
 
     ngOnChanges(){
-        this.selectedMember.id = this.memberid;
+
     }
 
     ngOnInit(){
-        this.selectedMember.id = this.memberid;
+        this.getMember();
     }
 }
