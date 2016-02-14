@@ -26,34 +26,34 @@ export class AllergyService {
         this.token = localStorage.getItem('token');
     }
 
-    getMembers() {
-        return Promise.resolve(MEMBERS);
-    }
-
-    getMemberAllergies(member:Member) {
-        if (member.lastName === "Hume") {
-            return Promise.resolve(ALLERGIES_DESMOND);
-        } else if (member.lastName === "Alpert") {
-            return Promise.resolve(ALLERGIES_RICHARD);
-        } else {
-            return Promise.resolve(ALLERGIES);
-        }
-
-    }
-
-    getMemberDiagnoses(member:Member) {
-        if (member.lastName === "Hume") {
-            return Promise.resolve(DIAGNOSES_DESMOND);
-        } else if (member.lastName === "Alpert") {
-            return Promise.resolve(DIAGNOSES_RICHARD);
-        } else {
-            return Promise.resolve(DIAGNOSES);
-        }
-
-    }
-
-    getMembersSlowly() {
-        return new Promise<Member[]>(resolve =>setTimeout(()=>resolve(MEMBERS), 2000) // 2 seconds
-        );
-    }
+    //getMembers() {
+    //    return Promise.resolve(MEMBERS);
+    //}
+    //
+    //getMemberAllergies(member:Member) {
+    //    if (member.lastName === "Hume") {
+    //        return Promise.resolve(ALLERGIES_DESMOND);
+    //    } else if (member.lastName === "Alpert") {
+    //        return Promise.resolve(ALLERGIES_RICHARD);
+    //    } else {
+    //        return Promise.resolve(ALLERGIES);
+    //    }
+    //
+    //}
+    //
+    //getMemberDiagnoses(member:Member) {
+    //    if (member.lastName === "Hume") {
+    //        return Promise.resolve(DIAGNOSES_DESMOND);
+    //    } else if (member.lastName === "Alpert") {
+    //        return Promise.resolve(DIAGNOSES_RICHARD);
+    //    } else {
+    //        return Promise.resolve(DIAGNOSES);
+    //    }
+    //
+    //}
+    //
+    //getMembersSlowly() {
+    //    return new Promise<Member[]>(resolve =>setTimeout(()=>resolve(MEMBERS), 2000) // 2 seconds
+    //    );
+    //}
 }

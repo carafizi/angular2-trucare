@@ -1,6 +1,6 @@
 import {OptionValue} from "./../common/OptionValue.ts";
 import {VoidConfig} from "./../common/VoidConfig";
-export interface AllergyConfiguration {
+export class AllergyConfiguration {
     voidConfig: VoidConfig;
     allergyOptions: OptionValue[];
     reactionOptions:OptionValue[];

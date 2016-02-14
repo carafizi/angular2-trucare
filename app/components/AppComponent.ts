@@ -1,5 +1,5 @@
 import {Component} from 'angular2/core';
-import {Member} from '../model/member/Member';
+import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 import {MemberDetailComponent} from './MemberDetailComponent';
 import {MemberService} from '../services/MemberService';
 import {OnInit, OnChanges} from 'angular2/core';
@@ -16,6 +16,9 @@ import {MedicationService} from "../services/MedicationService";
 import {ExtendedAttributesConfiguration} from "../model/common/ExtendedAttributesConfiguration";
 import {MemberMedicationsComponent} from "./MemberMedicationsComponent";
 import {MedicationsSummaryComponent} from "./MedicationsSummaryComponent";
+import {Member} from "../model/member/Member";
+import {MemberDashboardComponent} from "./MemberDashboardComponent";
+import {Router} from "angular2/router";
 
 @Component({
     selector: 'trucare-app',
@@ -31,7 +34,6 @@ import {MedicationsSummaryComponent} from "./MedicationsSummaryComponent";
             </tr>
             <tr>
                 <td valign="top" width="15%" style="padding-right: 10px">
-                    <!--<div><member-search [menumembers]="members"></member-search></div>-->
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <input class="form-control" placeholder="enter member name.." [(ngModel)]="memberSearchCriteria.lastName"
@@ -56,30 +58,37 @@ import {MedicationsSummaryComponent} from "./MedicationsSummaryComponent";
                 <td width="80%" valign="top">
                     <div class="container-fluid">
                         <div class="row" style="height: 60px">
-                            <member-menu></member-menu>
+                            <member-menu [member]="selectedMember"></member-menu>
                         </div>
                         <div class="row" style="height: 300px">
-                            <table style="width: 1500px">
-                                <tr >
-                                    <div class="col-xs-4">
-                                        <member-demographics [member]="selectedMember"></member-demographics>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <member-allergies [member]="selectedMember"></member-allergies>
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <member-diagnoses [member]="selectedMember"></member-diagnoses>
-                                    </div>
-                                </tr>
-                                <tr>
-                                    <div class="col-xs-4">
-                                        <member-medications  [member]="selectedMember"></member-medications>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <medications-summary [member]="selectedMember"></medications-summary>
-                                    </div>
-                                </tr>
-                             </table>
+
+
+
+                          <router-outlet [member]="selectedMember"></router-outlet>
+
+
+                          <!--<member-dashboard [member]="selectedMember"></member-dashboard>-->
+                            <!--<table style="width: 1500px">-->
+                                <!--<tr >-->
+                                    <!--<div class="col-xs-4">-->
+                                        <!--<member-demographics [member]="selectedMember"></member-demographics>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-4">-->
+                                        <!--<member-allergies [member]="selectedMember"></member-allergies>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-4">-->
+                                        <!--<member-diagnoses [member]="selectedMember"></member-diagnoses>-->
+                                    <!--</div>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<div class="col-xs-4">-->
+                                        <!--<member-medications  [member]="selectedMember"></member-medications>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;<div class="col-xs-8">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<medications-summary [member]="selectedMember"></medications-summary>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</tr>-->
+                             <!--</table>-->
                         </div>
                     </div>
                 </td>
@@ -87,9 +96,13 @@ import {MedicationsSummaryComponent} from "./MedicationsSummaryComponent";
         </table>
     `,
     styleUrls: ['app/components/css/app.component.css'],
-    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent, MedicationsSummaryComponent],
+    directives: [MemberDemographicsComponent, MemberAllergiesComponent, MemberDiagnosesComponent, MemberMenuComponent, TopMenuComponent, MemberMedicationsComponent, MedicationsSummaryComponent, ROUTER_DIRECTIVES],
     providers: [MemberService, MedicationService]
 })
+@RouteConfig([
+    {path:'/trucare-api/ng2/demographics',  name: 'MemberDashboard', component: MemberDashboardComponent},
+    {path:'/trucare-api/ng2/medications-summary/',   name: 'MedicationsSummary', component: MedicationsSummaryComponent}
+])
 export class AppComponent implements OnInit, OnChanges {
     public title = 'List of Members';
     public selectedMember:Member;
@@ -98,11 +111,12 @@ export class AppComponent implements OnInit, OnChanges {
     public memberResults:MemberSearchResult[];
 
 
-    constructor(private _memberService:MemberService) {}
+    constructor(private _memberService:MemberService, private _router: Router) {}
 
     onSelect(member:Member) {
         this.selectedMember = member;
         this.memberSearchCriteria.lastName="";
+        this._router.navigate( ['MemberDashboard', { memberid: member.id }] );
     }
 
     getMembers() {

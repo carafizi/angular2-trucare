@@ -16,6 +16,7 @@ import {SimpleDrug} from "../model/common/SimpleDrug";
 import {Drug} from "../model/common/Drug";
 import {ExtendedAttributesConfiguration} from "../model/common/ExtendedAttributesConfiguration";
 import {OnInit} from "angular2/core";
+import {RouteParams} from "angular2/router";
 
 
 @Component({
@@ -39,7 +40,7 @@ import {OnInit} from "angular2/core";
 
                 <div [hidden]="submitted">
                     <h1>Add Medication</h1>
-                    <form (ngSubmit)="addMedication()" #medicationForm="ngForm">
+                    <form (ngSubmit)="addMedication()" #medicationForm="ngForm" *ngIf="medicationConfiguration">
 
                         <div class="list-group">
 
@@ -116,7 +117,9 @@ export class MemberMedicationsComponent implements OnChanges, OnInit {
     public errorMsg;
 
 
-    constructor(private _memberService:MemberService, private _medicationService:MedicationService) {
+    constructor(private _memberService:MemberService, private _medicationService:MedicationService, _routeParams:RouteParams) {
+        this.member = new Member();
+        this.member.id =  _routeParams.get('memberid');
     }
 
     getMemberMedications() {

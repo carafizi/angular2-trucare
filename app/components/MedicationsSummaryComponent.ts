@@ -21,6 +21,8 @@ import {Grid} from "../Grid";
 import {Sorter} from '../Sorter';
 import {Medication} from "../model/clinical/Medication";
 import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
+import {Router} from "angular2/router";
+import {RouteParams} from "angular2/router";
 
 
 @Component({
@@ -29,6 +31,7 @@ import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
     template: `
         <div class="panel panel-primary" style="width: 100%">
             <div class="panel-heading">{{title}}</div>
+
             <div class="panel-body" *ngIf="member">
 
                 <div class="panel-body">
@@ -67,8 +70,7 @@ import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
                 </div>
 
                 <div [hidden]="!submitted">
-                    <button class="btn btn-default" type="button" id="addMedicationForm" (click)="showForm()">Add Medication
-                    </button>
+                    <button class="btn btn-default" type="button" id="addMedicationForm" (click)="showForm()">Add Medication</button>
                 </div>
 
                 <div [hidden]="submitted">
@@ -93,7 +95,7 @@ import {MedicationSearchPipe} from "../pipes/MedicationSearchPipe";
 })
 export class MedicationsSummaryComponent implements OnChanges, OnInit {
     @Input()
-    public member:Member;
+    public member:Member= new Member();
 
     public title = 'Medications Summary';
     public medications:MedicationSearchResult[] = [];
@@ -118,10 +120,17 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
 
     public searchCriteria = {id: "", name: ""};
 
+    @Input()
+    public memberid:string;
 
-    constructor(private _memberService:MemberService, private _medicationService:MedicationService) {
+
+    constructor(private _memberService:MemberService, private _medicationService:MedicationService, private _router:Router, private _routeParams:RouteParams) {
         this.columns = this.getColumns();
+        this.memberid = _routeParams.get('memberid');
+        this.member.id = this.memberid;
+
         console.log("member in  on constructor=" + JSON.stringify(this.member))
+        console.log("memberid in  on constructor=" + this.memberid)
     }
 
     getColumns():Array<Column> {
@@ -192,17 +201,11 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
         if (this.member) {
             this.getMemberMedications();
         }
-        console.log("member in  on init=" + JSON.stringify(this.member))
     }
 
     ngOnChanges() {
         if (this.member) {
             this.getMemberMedications();
-
-            console.log("member in  on onchanges=" + JSON.stringify(this.member));
-            console.log("meds on changes=" + JSON.stringify(this.medications))
-
-
         }
 
     }

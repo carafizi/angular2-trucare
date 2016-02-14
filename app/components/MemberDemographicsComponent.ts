@@ -32,6 +32,7 @@ export class MemberDemographicsComponent implements OnChanges {
     public allergies:Allergy[];
 
     constructor(private _memberService:MemberService) {
+        console.log("Member in Demographics constructor "+ JSON.stringify(this.member))
     }
 
 

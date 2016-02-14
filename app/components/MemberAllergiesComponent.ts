@@ -7,6 +7,7 @@ import {Member} from "../model/member/Member";
 import {AllergyConfiguration} from "../model/clinical/AllergyConfiguration";
 import {OptionValue} from "../model/common/OptionValue";
 import {CreateAllergyRequest} from "../model/clinical/CreateAllergyRequest";
+import {RouteParams} from "angular2/router";
 
 
 @Component({
@@ -29,7 +30,7 @@ import {CreateAllergyRequest} from "../model/clinical/CreateAllergyRequest";
 
         <div [hidden]="submitted">
             <h1>Add allergy</h1>
-            <form (ngSubmit)="onSubmit()" #allergyForm="ngForm">
+            <form (ngSubmit)="onSubmit()" #allergyForm="ngForm" *ngIf="allergyConfiguration">
 
                 <div class="form-group">
                     <label for="allergy">Allergy</label>
@@ -91,7 +92,7 @@ import {CreateAllergyRequest} from "../model/clinical/CreateAllergyRequest";
     </div>
 </div>
 `,
-    providers: [MemberService, AllergyService]
+    providers: [AllergyService]
 })
 export class MemberAllergiesComponent implements OnChanges, OnInit {
     @Input()
@@ -104,7 +105,9 @@ export class MemberAllergiesComponent implements OnChanges, OnInit {
     public submitted=true;
 
 
-    constructor(private _memberService:MemberService, private _allergyService:AllergyService) {
+    constructor(private _allergyService:AllergyService, private _routeParams:RouteParams) {
+        this.member = new Member();
+        this.member.id =  _routeParams.get('memberid');
     }
 
 

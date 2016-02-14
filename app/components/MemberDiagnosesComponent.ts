@@ -8,6 +8,7 @@ import {CreateDiagnosisRequest} from "../model/clinical/CreateDiagnosisRequest";
 import {DiagnosisCodeSearchResult} from "../model/clinical/DiagnosisCodeSearchResults";
 import {DiagnosisSearchCriteria} from "../model/clinical/DiagnosisSearchCriteria";
 import {DiagnosisService} from "../services/DiagnosisService";
+import {RouteParams} from "angular2/router";
 
 
 @Component({
@@ -92,7 +93,10 @@ export class MemberDiagnosesComponent implements OnChanges{
 
     private createdDiagnosisId;
 
-    constructor(private _memberService: MemberService, private _diagnosisService:DiagnosisService) { }
+    constructor(private _memberService: MemberService, private _diagnosisService:DiagnosisService, _routeParams:RouteParams) {
+        this.member = new Member();
+        this.member.id =  _routeParams.get('memberid');
+    }
 
     getMemberDiagnosis() {
         this._diagnosisService.searchMemberDiagnoses(this.member, this.diagnosisSearchCriteria).subscribe(res => {this.diagnoses = res.searchResults;});
