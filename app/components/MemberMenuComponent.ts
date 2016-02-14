@@ -22,24 +22,18 @@ export class MemberMenuComponent implements OnInit, OnChanges{
     @Input()
     public member:Member;
 
-    private _selectedId: number;
 
     constructor(private _router: Router){
-        //this._selectedId = +routeParams.get('memberid');
+    }
+
+    navigateTo(path:string){
+        this._router.navigate( [ path, { memberid: this.member.id }] );
     }
 
     ngOnInit() {
-        if(this.member)
-        console.log("MENU on init MEMBER:" + this.member.displayName)
     }
 
     ngOnChanges() {
-        if(this.member)
-        console.log("MENU on changes MEMBER"+ this.member.displayName)
     }
 
-    onSelect(path:String){
-        console.log("onselect path: "+ path);
-        this._router.navigate( [path, { memberid: "sss" }] );
-    }
 }
