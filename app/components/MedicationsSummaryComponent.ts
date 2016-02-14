@@ -32,14 +32,14 @@ import {RouteParams} from "angular2/router";
         <div class="panel panel-primary" style="width: 100%">
             <div class="panel-heading">{{title}}</div>
 
-            <div class="panel-body" *ngIf="member">
+            <div class="panel-body" *ngIf="member" style="width: 1500px">
 
                 <div class="panel-body">
                      <input class="form-control" placeholder="enter medication id.." [(ngModel)]="searchCriteria.name" (keyup)="filterMedications()"/>
                 </div>
 
 
-                <table class="table table-striped">
+                <table class="table table-striped" >
                     <tr>
                         <td *ngFor="#col of columns"><a (click)="sort(col.name)">{{col.descr}}</a></td>
                     </tr>
@@ -115,8 +115,11 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
 
     public searchCriteria = {id: "", name: ""};
 
+    columns:Column[];
+
 
     constructor(private _memberService:MemberService, private _medicationService:MedicationService, private _router:Router, private _routeParams:RouteParams) {
+        this.columns = this.getColumns();
         this.member = new Member();
         this.member.id = _routeParams.get('memberid');
     }
@@ -206,5 +209,15 @@ export class MedicationsSummaryComponent implements OnChanges, OnInit {
     sort(key) {
         console.log(key)
         this.sorter.sort(key, this.medicationsToDisplay);
+    }
+
+    getColumns():Array<Column> {
+        return [
+            new Column('id', 'id', 'ID'),
+            new Column('name', 'drug.name', 'Medication'),
+            new Column('dateAdded', 'dateAdded', 'Date added'),
+            new Column('active', 'active', 'Status'),
+            new Column('voidInfoExists', 'voidInfoExists', 'Voided')
+        ];
     }
 }

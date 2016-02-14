@@ -9,7 +9,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Member Information <span class="caret"></span></a>
                         <ul class="dropdown-menu" *ngIf="member">
                             <li><a href="#">Member summary</a></li>
-                            <li><a [routerLink]="['MemberDashboard', {memberid:member.id}]" >Demographics</a></li>
+                            <li><a href="#"  (click)="navigateTo('MemberDashboard')">Demographics</a></li>
                             <li><a href="#">Eligibility & Benefits summary</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Claims summary</a></li>
@@ -31,7 +31,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Clinical <span class="caret"></span></a>
                         <ul class="dropdown-menu" *ngIf="member">
-                            <li ><a [routerLink]="['MedicationsSummary', {memberid:member.id}]" >Medications Summary</a></li>
+                            <!--<li ><a [routerLink]="['MedicationsSummary', {memberid:member.id}]" >Medications Summary</a></li>-->
+                            <li><a href="#" (click)="navigateTo('MedicationsSummary')">Medications Summary</a></li>
                             <li><a href="#">Diagnosis Summary</a></li>
                             <li><a href="#">Allergies Summary</a></li>
                             <li><a href="#">Birth Event Summary</a></li>
